@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Incident Update</title>
+</head>
+<body style="font-family: Arial, sans-serif; background:#f4f6f8; padding:20px;">
+
+    <div style="max-width:600px; margin:auto; background:white; padding:20px; border-radius:8px;">
+        <h2 style="color:#0d6efd;">Incident Update Notification</h2>
+
+        <p>Hello <strong>{{ username }}</strong>,</p>
+
+        <p>Your reported incident has been updated by the admin.</p>
+
+        <table style="width:100%; border-collapse:collapse;">
+            <tr>
+                <td><strong>Incident ID</strong></td>
+                <td>#{{ incident_id }}</td>
+            </tr>
+            <tr>
+                <td><strong>Title</strong></td>
+                <td>{{ title }}</td>
+            </tr>
+            <tr>
+                <td><strong>Status</strong></td>
+                <td>{{ status }}</td>
+            </tr>
+            <tr>
+                <td><strong>Category</strong></td>
+                <td>{{ category }}</td>
+            </tr>
+            <tr>
+                <td><strong>Department</strong></td>
+                <td>{{ department }}</td>
+            </tr>
+        </table>
+
+        <p style="margin-top:20px;">
+            We are working to resolve this issue as soon as possible.
+        </p>
+
+        <p>
+            Regards,<br>
+            <strong>Incident Platform Team</strong>
+        </p>
+    </div>
+
+</body>
+</html>

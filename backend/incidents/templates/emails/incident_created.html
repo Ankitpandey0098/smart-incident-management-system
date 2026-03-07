@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f6f8;
+      padding: 20px;
+    }
+    .container {
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 8px;
+      max-width: 600px;
+      margin: auto;
+    }
+    .header {
+      color: #2563eb;
+      font-size: 20px;
+      font-weight: bold;
+    }
+    .box {
+      background: #f1f5f9;
+      padding: 12px;
+      border-radius: 6px;
+      margin-top: 10px;
+    }
+    .footer {
+      margin-top: 20px;
+      font-size: 12px;
+      color: #6b7280;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+    <div style="text-align: center; margin-bottom: 20px;">
+  <img 
+    src="{{ logo_url }}" 
+    alt="Incident Platform Logo"
+    style="max-width: 180px;"
+  />
+</div>
+
+  <div class="header">Incident Reported Successfully</div>
+
+  <p>Hello <strong>{{ username }}</strong>,</p>
+
+  <p>Your incident has been reported successfully. Below are the details:</p>
+
+  <div class="box">
+    <p><strong>Title:</strong> {{ title }}</p>
+    <p><strong>Status:</strong> {{ status }}</p>
+    <p><strong>Incident ID:</strong> {{ incident_id }}</p>
+  </div>
+
+  <p>We will notify you if the status changes.</p>
+
+  <div class="footer">
+    © Incident Platform – This is an automated email
+  </div>
+</div>
+
+</body>
+</html>
