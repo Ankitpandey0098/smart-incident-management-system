@@ -1,505 +1,1056 @@
-incident,category
-incident,category
-water not draining properly after rain,Drainage
-drain blocked near my house,Drainage
-sewage overflowing on main road,Drainage
-gutter jam causing waterlogging,Drainage
-naali blocked for many days,Drainage
-dirty water coming out of drain,Drainage
-drainage water entering homes,Drainage
-sewer overflow near market,Drainage
-manhole overflow on road,Drainage
-storm water drain completely blocked,Drainage
-bad smell coming from sewer line,Drainage
-drainage water stagnating near houses,Drainage
-overflowing gutter after light rain,Drainage
-sewer chamber leaking continuously,Drainage
-drainage system failure reported,Drainage
-waterlogging due to blocked drainage,Drainage
-sewer line choked badly,Drainage
-drain overflow causing traffic jam,Drainage
-naali ka pani sadak par aa raha hai,Drainage
-sewage water flowing openly,Drainage
-drain blocked with plastic waste,Drainage
-water accumulated near drain outlet,Drainage
-sewer water backing up into homes,Drainage
-drainage overflow creating foul smell,Drainage
-manhole cover missing and overflowing,Drainage
-rainwater mixed with sewage,Drainage
-drainage water flooding street,Drainage
-sewer blockage not cleared,Drainage
-naali overflow after rainfall,Drainage
-drain water stagnant for days,Drainage
-sewer line damaged and leaking,Drainage
-drainage issue near residential area,Drainage
-water not flowing in drain,Drainage
-overflowing sewer creating health hazard,Drainage
-blocked drain near school,Drainage
-sewage water spreading on road,Drainage
-drain clogged due to debris,Drainage
-naali jam hone se pani bhar gaya,Drainage
-drainage problem causing mosquito breeding,Drainage
-sewer overflow near hospital,Drainage
-drainage water entering shops,Drainage
-storm drain blocked with garbage,Drainage
-sewage smell unbearable,Drainage
-drain overflow near bus stop,Drainage
-water stagnation due to drainage failure,Drainage
-sewer water leaking from manhole,Drainage
-naali ka pani ghar ke andar aa raha hai,Drainage
-drainage line broken,Drainage
-overflowing gutter near houses,Drainage
-sewage blockage reported multiple times,Drainage
-drain filled with mud and waste,Drainage
-waterlogging after every rain,Drainage
-sewer overflow causing accidents,Drainage
-naali ka pani sadak par jama hai,Drainage
-drainage water affecting hygiene,Drainage
-sewer chamber lid broken,Drainage
-blocked drain near playground,Drainage
-dirty sewer water on street,Drainage
-drainage overflow near market area,Drainage
-storm water drain not working,Drainage
-sewage water flooding low-lying area,Drainage
-drain blockage unresolved,Drainage
-naali se ganda pani bahar aa raha hai,Drainage
-drain water flowing backward,Drainage
-sewer overflow during rain,Drainage
-drainage water damaging road,Drainage
-blocked sewer line causing overflow,Drainage
-overflowing drain near residential gate,Drainage
-water not draining from street,Drainage
-sewage leak near footpath,Drainage
-naali jam hone se badbu aa rahi hai,Drainage
-drainage issue reported many times,Drainage
-sewer overflow creating unhygienic conditions,Drainage
-drain blocked near commercial area,Drainage
-stagnant sewer water near houses,Drainage
-drainage failure during monsoon,Drainage
-naali ka ganda pani jama hai,Drainage
-drain overflow affecting daily life,Drainage
-sewage water entering basement,Drainage
-drainage problem causing illness,Drainage
-blocked drain near crossing,Drainage
-overflowing sewer not repaired,Drainage
+incident,category,emergency
+water not draining properly after rain,Drainage,False
+drain blocked near my house,Drainage,False
+sewage overflowing on main road,Drainage,False
+gutter jam causing waterlogging,Drainage,False
+naali blocked for many days,Drainage,False
+dirty water coming out of drain,Drainage,False
+drainage water entering homes,Drainage,False
+sewer overflow near market,Drainage,False
+manhole overflow on road,Drainage,False
+storm water drain completely blocked,Drainage,False
+bad smell coming from sewer line,Drainage,False
+drainage water stagnating near houses,Drainage,False
+overflowing gutter after light rain,Drainage,False
+sewer chamber leaking continuously,Drainage,False
+drainage system failure reported,Drainage,False
+waterlogging due to blocked drainage,Drainage,False
+sewer line choked badly,Drainage,False
+drain overflow causing traffic jam,Drainage,False
+naali ka pani sadak par aa raha hai,Drainage,False
+sewage water flowing openly,Drainage,False
+drain blocked with plastic waste,Drainage,False
+water accumulated near drain outlet,Drainage,False
+sewer water backing up into homes,Drainage,False
+drainage overflow creating foul smell,Drainage,False
+manhole cover missing and overflowing,Drainage,False
+rainwater mixed with sewage,Drainage,False
+drainage water flooding street,Drainage,False
+sewer blockage not cleared,Drainage,False
+naali overflow after rainfall,Drainage,False
+drain water stagnant for days,Drainage,False
+sewer line damaged and leaking,Drainage,False
+drainage issue near residential area,Drainage,False
+water not flowing in drain,Drainage,False
+overflowing sewer creating health hazard,Drainage,False
+blocked drain near school,Drainage,False
+sewage water spreading on road,Drainage,False
+drain clogged due to debris,Drainage,False
+naali jam hone se pani bhar gaya,Drainage,False
+drainage problem causing mosquito breeding,Drainage,False
+sewer overflow near hospital,Drainage,False
+drainage water entering shops,Drainage,False
+storm drain blocked with garbage,Drainage,False
+sewage smell unbearable,Drainage,False
+drain overflow near bus stop,Drainage,False
+water stagnation due to drainage failure,Drainage,False
+sewer water leaking from manhole,Drainage,False
+naali ka pani ghar ke andar aa raha hai,Drainage,False
+drainage line broken,Drainage,False
+overflowing gutter near houses,Drainage,False
+sewage blockage reported multiple times,Drainage,False
+drain filled with mud and waste,Drainage,False
+waterlogging after every rain,Drainage,False
+sewer overflow causing accidents,Drainage,False
+naali ka pani sadak par jama hai,Drainage,False
+drainage water affecting hygiene,Drainage,False
+sewer chamber lid broken,Drainage,False
+blocked drain near playground,Drainage,False
+dirty sewer water on street,Drainage,False
+drainage overflow near market area,Drainage,False
+storm water drain not working,Drainage,False
+sewage water flooding low-lying area,Drainage,False
+drain blockage unresolved,Drainage,False
+naali se ganda pani bahar aa raha hai,Drainage,False
+drain water flowing backward,Drainage,False
+sewer overflow during rain,Drainage,False
+drainage water damaging road,Drainage,False
+blocked sewer line causing overflow,Drainage,False
+overflowing drain near residential gate,Drainage,False
+water not draining from street,Drainage,False
+sewage leak near footpath,Drainage,False
+naali jam hone se badbu aa rahi hai,Drainage,False
+drainage issue reported many times,Drainage,False
+sewer overflow creating unhygienic conditions,Drainage,False
+drain blocked near commercial area,Drainage,False
+stagnant sewer water near houses,Drainage,False
+drainage failure during monsoon,Drainage,False
+naali ka ganda pani jama hai,Drainage,False
+drain overflow affecting daily life,Drainage,False
+sewage water entering basement,Drainage,False
+drainage problem causing illness,Drainage,False
+blocked drain near crossing,Drainage,False
+overflowing sewer not repaired,Drainage,False
 
-someone dumped garbage in empty plot,Illegal_Dumping
-construction debris thrown on roadside,Illegal_Dumping
-kooda road ke side daala hua hai,Illegal_Dumping
-plastic waste dumped near school,Illegal_Dumping
-garbage pile left near residential area,Illegal_Dumping
-illegal dumping happening at night,Illegal_Dumping
-dumped waste attracting animals,Illegal_Dumping
-unauthorized garbage dumping reported,Illegal_Dumping
-garbage dumped near water body,Illegal_Dumping
-waste dumped beside highway,Illegal_Dumping
-debris dumped without permission,Illegal_Dumping
-open dumping creating foul smell,Illegal_Dumping
-garbage dumped near park,Illegal_Dumping
-dumping trash in vacant land,Illegal_Dumping
-illegal dumping near river bank,Illegal_Dumping
-garbage dumped behind houses,Illegal_Dumping
-construction waste dumped illegally,Illegal_Dumping
-trash dumped in open area,Illegal_Dumping
-kooda khule mein phenk diya gaya hai,Illegal_Dumping
-illegal dumping near market area,Illegal_Dumping
-garbage dumped near bus stop,Illegal_Dumping
-waste dumped on empty land,Illegal_Dumping
-unauthorized dumping of debris,Illegal_Dumping
-illegal trash dumping complaint,Illegal_Dumping
-garbage dumped near drainage,Illegal_Dumping
-dumped waste causing health issues,Illegal_Dumping
-construction material dumped on footpath,Illegal_Dumping
-illegal dumping near playground,Illegal_Dumping
-kooda gali ke kone mein dala gaya hai,Illegal_Dumping
-waste dumped in public place,Illegal_Dumping
-garbage dumped near hospital,Illegal_Dumping
-illegal dumping causing pollution,Illegal_Dumping
-trash dumped along roadside,Illegal_Dumping
-construction debris dumped at night,Illegal_Dumping
-garbage dumped near railway track,Illegal_Dumping
-dumped waste blocking pathway,Illegal_Dumping
-illegal dumping in residential colony,Illegal_Dumping
-kooda nadi ke paas dala gaya hai,Illegal_Dumping
-waste dumped near lake,Illegal_Dumping
-garbage dumped without approval,Illegal_Dumping
-illegal dumping behind commercial area,Illegal_Dumping
-trash dumped in open plot,Illegal_Dumping
-garbage dumped near school gate,Illegal_Dumping
-dumped waste attracting insects,Illegal_Dumping
-illegal dumping creating bad odor,Illegal_Dumping
-construction waste dumped near homes,Illegal_Dumping
-garbage dumped in unused land,Illegal_Dumping
-kooda sadak ke beech dala gaya hai,Illegal_Dumping
-illegal dumping near bridge,Illegal_Dumping
-trash dumped in empty field,Illegal_Dumping
-garbage dumped near temple area,Illegal_Dumping
-dumped waste causing traffic obstruction,Illegal_Dumping
-illegal dumping on government land,Illegal_Dumping
-construction debris dumped near road,Illegal_Dumping
-garbage dumped near residential gate,Illegal_Dumping
-illegal dumping complaint unresolved,Illegal_Dumping
-trash dumped beside canal,Illegal_Dumping
-kooda khali plot mein dala gaya hai,Illegal_Dumping
-illegal dumping harming environment,Illegal_Dumping
-garbage dumped near children park,Illegal_Dumping
-dumped waste near office buildings,Illegal_Dumping
-illegal dumping causing water blockage,Illegal_Dumping
-trash dumped near footpath,Illegal_Dumping
-garbage dumped near slum area,Illegal_Dumping
-illegal dumping by contractors,Illegal_Dumping
-construction debris dumped near river,Illegal_Dumping
-garbage dumped near highway exit,Illegal_Dumping
-dumped waste attracting stray animals,Illegal_Dumping
-illegal dumping in vacant area,Illegal_Dumping
-trash dumped near bus depot,Illegal_Dumping
-garbage dumped near residential road,Illegal_Dumping
-illegal dumping reported repeatedly,Illegal_Dumping
-construction waste dumped on open land,Illegal_Dumping
-garbage dumped behind shops,Illegal_Dumping
-illegal dumping creating unhygienic conditions,Illegal_Dumping
-trash dumped near industrial area,Illegal_Dumping
-garbage dumped without municipal approval,Illegal_Dumping
-illegal dumping near water pipeline,Illegal_Dumping
-construction debris dumped in open ground,Illegal_Dumping
-garbage dumped near school boundary,Illegal_Dumping
-illegal dumping affecting public health,Illegal_Dumping
-dumped waste left unattended,Illegal_Dumping
-illegal dumping causing mosquito breeding,Illegal_Dumping
+someone dumped garbage in empty plot,Illegal_Dumping,False
+construction debris thrown on roadside,Illegal_Dumping,False
+kooda road ke side daala hua hai,Illegal_Dumping,False
+plastic waste dumped near school,Illegal_Dumping,False
+garbage pile left near residential area,Illegal_Dumping,False
+illegal dumping happening at night,Illegal_Dumping,False
+dumped waste attracting animals,Illegal_Dumping,False
+unauthorized garbage dumping reported,Illegal_Dumping,False
+garbage dumped near water body,Illegal_Dumping,False
+waste dumped beside highway,Illegal_Dumping,False
+debris dumped without permission,Illegal_Dumping,False
+open dumping creating foul smell,Illegal_Dumping,False
+garbage dumped near park,Illegal_Dumping,False
+dumping trash in vacant land,Illegal_Dumping,False
+illegal dumping near river bank,Illegal_Dumping,False
+garbage dumped behind houses,Illegal_Dumping,False
+construction waste dumped illegally,Illegal_Dumping,False
+trash dumped in open area,Illegal_Dumping,False
+kooda khule mein phenk diya gaya hai,Illegal_Dumping,False
+illegal dumping near market area,Illegal_Dumping,False
+garbage dumped near bus stop,Illegal_Dumping,False
+waste dumped on empty land,Illegal_Dumping,False
+unauthorized dumping of debris,Illegal_Dumping,False
+illegal trash dumping complaint,Illegal_Dumping,False
+garbage dumped near drainage,Illegal_Dumping,False
+dumped waste causing health issues,Illegal_Dumping,False
+construction material dumped on footpath,Illegal_Dumping,False
+illegal dumping near playground,Illegal_Dumping,False
+kooda gali ke kone mein dala gaya hai,Illegal_Dumping,False
+waste dumped in public place,Illegal_Dumping,False
+garbage dumped near hospital,Illegal_Dumping,False
+illegal dumping causing pollution,Illegal_Dumping,False
+trash dumped along roadside,Illegal_Dumping,False
+construction debris dumped at night,Illegal_Dumping,False
+garbage dumped near railway track,Illegal_Dumping,False
+dumped waste blocking pathway,Illegal_Dumping,False
+illegal dumping in residential colony,Illegal_Dumping,False
+kooda nadi ke paas dala gaya hai,Illegal_Dumping,False
+waste dumped near lake,Illegal_Dumping,False
+garbage dumped without approval,Illegal_Dumping,False
+illegal dumping behind commercial area,Illegal_Dumping,False
+trash dumped in open plot,Illegal_Dumping,False
+garbage dumped near school gate,Illegal_Dumping,False
+dumped waste attracting insects,Illegal_Dumping,False
+illegal dumping creating bad odor,Illegal_Dumping,False
+construction waste dumped near homes,Illegal_Dumping,False
+garbage dumped in unused land,Illegal_Dumping,False
+kooda sadak ke beech dala gaya hai,Illegal_Dumping,False
+illegal dumping near bridge,Illegal_Dumping,False
+trash dumped in empty field,Illegal_Dumping,False
+garbage dumped near temple area,Illegal_Dumping,False
+dumped waste causing traffic obstruction,Illegal_Dumping,False
+illegal dumping on government land,Illegal_Dumping,False
+construction debris dumped near road,Illegal_Dumping,False
+garbage dumped near residential gate,Illegal_Dumping,False
+illegal dumping complaint unresolved,Illegal_Dumping,False
+trash dumped beside canal,Illegal_Dumping,False
+kooda khali plot mein dala gaya hai,Illegal_Dumping,False
+illegal dumping harming environment,Illegal_Dumping,False
+garbage dumped near children park,Illegal_Dumping,False
+dumped waste near office buildings,Illegal_Dumping,False
+illegal dumping causing water blockage,Illegal_Dumping,False
+trash dumped near footpath,Illegal_Dumping,False
+garbage dumped near slum area,Illegal_Dumping,False
+illegal dumping by contractors,Illegal_Dumping,False
+construction debris dumped near river,Illegal_Dumping,False
+garbage dumped near highway exit,Illegal_Dumping,False
+dumped waste attracting stray animals,Illegal_Dumping,False
+illegal dumping in vacant area,Illegal_Dumping,False
+trash dumped near bus depot,Illegal_Dumping,False
+garbage dumped near residential road,Illegal_Dumping,False
+illegal dumping reported repeatedly,Illegal_Dumping,False
+construction waste dumped on open land,Illegal_Dumping,False
+garbage dumped behind shops,Illegal_Dumping,False
+illegal dumping creating unhygienic conditions,Illegal_Dumping,False
+trash dumped near industrial area,Illegal_Dumping,False
+garbage dumped without municipal approval,Illegal_Dumping,False
+illegal dumping near water pipeline,Illegal_Dumping,False
+construction debris dumped in open ground,Illegal_Dumping,False
+garbage dumped near school boundary,Illegal_Dumping,False
+illegal dumping affecting public health,Illegal_Dumping,False
+dumped waste left unattended,Illegal_Dumping,False
+illegal dumping causing mosquito breeding,Illegal_Dumping,False
 
-factory emissions polluting air,Environmental_Damage
-industrial waste contaminating water,Environmental_Damage
-deforestation impacting wildlife,Environmental_Damage
-chemical runoff polluting river,Environmental_Damage
-oil leakage contaminating soil,Environmental_Damage
-toxic gases released from factory,Environmental_Damage
-industrial pollution damaging ecosystem,Environmental_Damage
-noise pollution affecting nearby areas,Environmental_Damage
-environmental degradation reported,Environmental_Damage
-habitat destruction due to construction,Environmental_Damage
-illegal dumping harming wildlife,Environmental_Damage
-pollution destroying natural balance,Environmental_Damage
-ecosystem damage observed,Environmental_Damage
-environmental harm due to dumping,Environmental_Damage
-severe environmental damage reported,Environmental_Damage
-factory waste harming environment,Environmental_Damage
-industrial discharge damaging river,Environmental_Damage
-toxic chemicals affecting soil quality,Environmental_Damage
-environmental damage due to mining,Environmental_Damage
-ecosystem disturbed by construction,Environmental_Damage
-industrial activities harming biodiversity,Environmental_Damage
-chemical spill damaging farmland,Environmental_Damage
-environmental damage near industrial area,Environmental_Damage
-toxic waste destroying vegetation,Environmental_Damage
-industrial smoke harming ecosystem,Environmental_Damage
-habitat loss due to road construction,Environmental_Damage
-environmental damage caused by dumping waste,Environmental_Damage
-pollution affecting flora and fauna,Environmental_Damage
-oil spill damaging nearby land,Environmental_Damage
-industrial pollution impacting wildlife,Environmental_Damage
-environmental damage from factory runoff,Environmental_Damage
-toxic gas leak damaging environment,Environmental_Damage
-ecosystem imbalance reported,Environmental_Damage
-construction debris damaging environment,Environmental_Damage
-illegal waste disposal harming land,Environmental_Damage
-environmental damage due to deforestation,Environmental_Damage
-industrial contamination affecting groundwater,Environmental_Damage
-chemical waste damaging river ecosystem,Environmental_Damage
-environmental harm due to industrial smoke,Environmental_Damage
-toxic residue affecting soil fertility,Environmental_Damage
-ecosystem destruction near construction site,Environmental_Damage
-environmental damage due to oil spill,Environmental_Damage
-industrial pollution degrading environment,Environmental_Damage
-habitat destroyed by illegal dumping,Environmental_Damage
-environmental damage affecting wildlife sanctuary,Environmental_Damage
-chemical runoff damaging aquatic life,Environmental_Damage
-environmental degradation due to human activity,Environmental_Damage
-industrial waste affecting ecosystem balance,Environmental_Damage
-toxic effluents damaging river bank,Environmental_Damage
-environmental harm reported near factory,Environmental_Damage
-ecosystem affected by waste dumping,Environmental_Damage
-environmental damage from industrial leakage,Environmental_Damage
-chemical contamination damaging environment,Environmental_Damage
-industrial activity causing environmental loss,Environmental_Damage
-habitat damage due to land clearing,Environmental_Damage
-environmental harm due to chemical dumping,Environmental_Damage
-toxic substances damaging natural habitat,Environmental_Damage
-environmental damage observed near river,Environmental_Damage
-industrial waste degrading soil quality,Environmental_Damage
-ecosystem destruction due to pollution,Environmental_Damage
-environmental damage caused by industrial spill,Environmental_Damage
-habitat destruction affecting biodiversity,Environmental_Damage
-environmental harm due to oil leakage,Environmental_Damage
-toxic chemicals damaging environment,Environmental_Damage
-industrial pollution causing ecosystem collapse,Environmental_Damage
-environmental degradation affecting local area,Environmental_Damage
-chemical waste harming natural resources,Environmental_Damage
-ecosystem damage from industrial discharge,Environmental_Damage
-environmental damage due to toxic emissions,Environmental_Damage
-habitat loss reported near industrial zone,Environmental_Damage
-environmental harm due to waste discharge,Environmental_Damage
-toxic contamination damaging ecosystem,Environmental_Damage
-industrial waste causing environmental destruction,Environmental_Damage
-environmental damage affecting natural resources,Environmental_Damage
-chemical spill harming environment,Environmental_Damage
-ecosystem imbalance due to pollution,Environmental_Damage
-environmental harm reported due to factory waste,Environmental_Damage
-toxic runoff damaging environment,Environmental_Damage
-industrial pollution destroying habitats,Environmental_Damage
-environmental damage impacting biodiversity,Environmental_Damage
-chemical effluents damaging land,Environmental_Damage
-ecosystem damage due to industrial pollution,Environmental_Damage
-environmental harm from illegal dumping,Environmental_Damage
-toxic industrial waste damaging ecosystem,Environmental_Damage
-environmental destruction reported,Environmental_Damage
+factory emissions polluting air,Environmental_Damage,False
+industrial waste contaminating water,Environmental_Damage,False
+deforestation impacting wildlife,Environmental_Damage,False
+chemical runoff polluting river,Environmental_Damage,False
+oil leakage contaminating soil,Environmental_Damage,False
+toxic gases released from factory,Environmental_Damage,False
+industrial pollution damaging ecosystem,Environmental_Damage,False
+noise pollution affecting nearby areas,Environmental_Damage,False
+environmental degradation reported,Environmental_Damage,False
+habitat destruction due to construction,Environmental_Damage,False
+illegal dumping harming wildlife,Environmental_Damage,False
+pollution destroying natural balance,Environmental_Damage,False
+ecosystem damage observed,Environmental_Damage,False
+environmental harm due to dumping,Environmental_Damage,False
+severe environmental damage reported,Environmental_Damage,False
+factory waste harming environment,Environmental_Damage,False
+industrial discharge damaging river,Environmental_Damage,False
+toxic chemicals affecting soil quality,Environmental_Damage,False
+environmental damage due to mining,Environmental_Damage,False
+ecosystem disturbed by construction,Environmental_Damage,False
+industrial activities harming biodiversity,Environmental_Damage,False
+chemical spill damaging farmland,Environmental_Damage,False
+environmental damage near industrial area,Environmental_Damage,False
+toxic waste destroying vegetation,Environmental_Damage,False
+industrial smoke harming ecosystem,Environmental_Damage,False
+habitat loss due to road construction,Environmental_Damage,False
+environmental damage caused by dumping waste,Environmental_Damage,False
+pollution affecting flora and fauna,Environmental_Damage,False
+oil spill damaging nearby land,Environmental_Damage,False
+industrial pollution impacting wildlife,Environmental_Damage,False
+environmental damage from factory runoff,Environmental_Damage,False
+toxic gas leak damaging environment,Environmental_Damage,False
+ecosystem imbalance reported,Environmental_Damage,False
+construction debris damaging environment,Environmental_Damage,False
+illegal waste disposal harming land,Environmental_Damage,False
+environmental damage due to deforestation,Environmental_Damage,False
+industrial contamination affecting groundwater,Environmental_Damage,False
+chemical waste damaging river ecosystem,Environmental_Damage,False
+environmental harm due to industrial smoke,Environmental_Damage,False
+toxic residue affecting soil fertility,Environmental_Damage,False
+ecosystem destruction near construction site,Environmental_Damage,False
+environmental damage due to oil spill,Environmental_Damage,False
+industrial pollution degrading environment,Environmental_Damage,False
+habitat destroyed by illegal dumping,Environmental_Damage,False
+environmental damage affecting wildlife sanctuary,Environmental_Damage,False
+chemical runoff damaging aquatic life,Environmental_Damage,False
+environmental degradation due to human activity,Environmental_Damage,False
+industrial waste affecting ecosystem balance,Environmental_Damage,False
+toxic effluents damaging river bank,Environmental_Damage,False
+environmental harm reported near factory,Environmental_Damage,False
+ecosystem affected by waste dumping,Environmental_Damage,False
+environmental damage from industrial leakage,Environmental_Damage,False
+chemical contamination damaging environment,Environmental_Damage,False
+industrial activity causing environmental loss,Environmental_Damage,False
+habitat damage due to land clearing,Environmental_Damage,False
+environmental harm due to chemical dumping,Environmental_Damage,False
+toxic substances damaging natural habitat,Environmental_Damage,False
+environmental damage observed near river,Environmental_Damage,False
+industrial waste degrading soil quality,Environmental_Damage,False
+ecosystem destruction due to pollution,Environmental_Damage,False
+environmental damage caused by industrial spill,Environmental_Damage,False
+habitat destruction affecting biodiversity,Environmental_Damage,False
+environmental harm due to oil leakage,Environmental_Damage,False
+toxic chemicals damaging environment,Environmental_Damage,False
+industrial pollution causing ecosystem collapse,Environmental_Damage,False
+environmental degradation affecting local area,Environmental_Damage,False
+chemical waste harming natural resources,Environmental_Damage,False
+ecosystem damage from industrial discharge,Environmental_Damage,False
+environmental damage due to toxic emissions,Environmental_Damage,False
+habitat loss reported near industrial zone,Environmental_Damage,False
+environmental harm due to waste discharge,Environmental_Damage,False
+toxic contamination damaging ecosystem,Environmental_Damage,False
+industrial waste causing environmental destruction,Environmental_Damage,False
+environmental damage affecting natural resources,Environmental_Damage,False
+chemical spill harming environment,Environmental_Damage,False
+ecosystem imbalance due to pollution,Environmental_Damage,False
+environmental harm reported due to factory waste,Environmental_Damage,False
+toxic runoff damaging environment,Environmental_Damage,False
+industrial pollution destroying habitats,Environmental_Damage,False
+environmental damage impacting biodiversity,Environmental_Damage,False
+chemical effluents damaging land,Environmental_Damage,False
+ecosystem damage due to industrial pollution,Environmental_Damage,False
+environmental harm from illegal dumping,Environmental_Damage,False
+toxic industrial waste damaging ecosystem,Environmental_Damage,False
+environmental destruction reported,Environmental_Damage,False
 
-trees being cut without permission,Deforestation
-illegal tree cutting near village,Deforestation
-forest area cleared unlawfully,Deforestation
-unauthorized logging activity reported,Deforestation
-trees felled in protected area,Deforestation
-ped kaat rahe hai bina permission,Deforestation
-green belt destroyed for construction,Deforestation
-trees chopped near highway,Deforestation
-illegal removal of forest trees,Deforestation
-forest land encroachment reported,Deforestation
-tree cutting near residential area,Deforestation
-trees removed overnight illegally,Deforestation
-forest destruction complaint filed,Deforestation
-illegal deforestation near city,Deforestation
-tree cutting harming environment,Deforestation
-trees cut down for road widening,Deforestation
-forest trees cut illegally at night,Deforestation
-unauthorized clearing of forest land,Deforestation
-trees being cut near river bank,Deforestation
-illegal wood cutting reported,Deforestation
-forest cover reduced due to logging,Deforestation
-ped kaatne ka kaam chal raha hai,Deforestation
-trees cut without forest approval,Deforestation
-forest area damaged by contractors,Deforestation
-trees removed for illegal construction,Deforestation
-deforestation happening near village,Deforestation
-forest land illegally occupied,Deforestation
-trees chopped inside reserve forest,Deforestation
-illegal felling of old trees,Deforestation
-forest trees destroyed for mining,Deforestation
-green area cleared without notice,Deforestation
-trees being cut in large numbers,Deforestation
-forest damage due to illegal logging,Deforestation
-ped kaat kar lakdi le ja rahe hai,Deforestation
-trees felled near school area,Deforestation
-unauthorized tree cutting reported,Deforestation
-forest land cleared for shops,Deforestation
-trees destroyed in forest patch,Deforestation
-illegal cutting of roadside trees,Deforestation
-forest trees removed by builders,Deforestation
-deforestation near protected zone,Deforestation
-trees cut for illegal road,Deforestation
-forest area reduced rapidly,Deforestation
-illegal tree cutting by contractors,Deforestation
-ped bina ijazat kaat rahe hain,Deforestation
-trees removed near wildlife area,Deforestation
-forest land damaged by encroachers,Deforestation
-trees chopped near railway line,Deforestation
-illegal clearing of green cover,Deforestation
-forest destruction due to development,Deforestation
-trees cut near water body,Deforestation
-unauthorized forest clearance work,Deforestation
-forest trees destroyed at night,Deforestation
-ped kaatne se jungle khatam ho raha hai,Deforestation
-trees removed for private project,Deforestation
-illegal logging inside forest,Deforestation
-forest area damaged by road work,Deforestation
-trees cut down without approval,Deforestation
-forest cover loss reported,Deforestation
-unauthorized tree cutting in city,Deforestation
-trees removed near temple land,Deforestation
-illegal forest clearance complaint,Deforestation
-forest land being destroyed,Deforestation
-trees chopped for commercial use,Deforestation
-illegal tree cutting affecting wildlife,Deforestation
-forest area cleared for housing,Deforestation
-trees felled without environmental clearance,Deforestation
-forest destruction ongoing,Deforestation
-ped kaat rahe hain jungle mein,Deforestation
-trees removed near agricultural land,Deforestation
-illegal logging affecting ecosystem,Deforestation
-forest area illegally cleared,Deforestation
-trees destroyed by construction mafia,Deforestation
-unauthorized cutting of green belt,Deforestation
-forest trees cut near border area,Deforestation
-trees being cut despite ban,Deforestation
-illegal deforestation harming nature,Deforestation
-forest area damaged beyond repair,Deforestation
-trees removed without replantation,Deforestation
-forest destruction affecting wildlife,Deforestation
-illegal tree cutting not stopped,Deforestation
+trees being cut without permission,Deforestation,False
+illegal tree cutting near village,Deforestation,False
+forest area cleared unlawfully,Deforestation,False
+unauthorized logging activity reported,Deforestation,False
+trees felled in protected area,Deforestation,False
+ped kaat rahe hai bina permission,Deforestation,False
+green belt destroyed for construction,Deforestation,False
+trees chopped near highway,Deforestation,False
+illegal removal of forest trees,Deforestation,False
+forest land encroachment reported,Deforestation,False
+tree cutting near residential area,Deforestation,False
+trees removed overnight illegally,Deforestation,False
+forest destruction complaint filed,Deforestation,False
+illegal deforestation near city,Deforestation,False
+tree cutting harming environment,Deforestation,False
+trees cut down for road widening,Deforestation,False
+forest trees cut illegally at night,Deforestation,False
+unauthorized clearing of forest land,Deforestation,False
+trees being cut near river bank,Deforestation,False
+illegal wood cutting reported,Deforestation,False
+forest cover reduced due to logging,Deforestation,False
+ped kaatne ka kaam chal raha hai,Deforestation,False
+trees cut without forest approval,Deforestation,False
+forest area damaged by contractors,Deforestation,False
+trees removed for illegal construction,Deforestation,False
+deforestation happening near village,Deforestation,False
+forest land illegally occupied,Deforestation,False
+trees chopped inside reserve forest,Deforestation,False
+illegal felling of old trees,Deforestation,False
+forest trees destroyed for mining,Deforestation,False
+green area cleared without notice,Deforestation,False
+trees being cut in large numbers,Deforestation,False
+forest damage due to illegal logging,Deforestation,False
+ped kaat kar lakdi le ja rahe hai,Deforestation,False
+trees felled near school area,Deforestation,False
+unauthorized tree cutting reported,Deforestation,False
+forest land cleared for shops,Deforestation,False
+trees destroyed in forest patch,Deforestation,False
+illegal cutting of roadside trees,Deforestation,False
+forest trees removed by builders,Deforestation,False
+deforestation near protected zone,Deforestation,False
+trees cut for illegal road,Deforestation,False
+forest area reduced rapidly,Deforestation,False
+illegal tree cutting by contractors,Deforestation,False
+ped bina ijazat kaat rahe hain,Deforestation,False
+trees removed near wildlife area,Deforestation,False
+forest land damaged by encroachers,Deforestation,False
+trees chopped near railway line,Deforestation,False
+illegal clearing of green cover,Deforestation,False
+forest destruction due to development,Deforestation,False
+trees cut near water body,Deforestation,False
+unauthorized forest clearance work,Deforestation,False
+forest trees destroyed at night,Deforestation,False
+ped kaatne se jungle khatam ho raha hai,Deforestation,False
+trees removed for private project,Deforestation,False
+illegal logging inside forest,Deforestation,False
+forest area damaged by road work,Deforestation,False
+trees cut down without approval,Deforestation,False
+forest cover loss reported,Deforestation,False
+unauthorized tree cutting in city,Deforestation,False
+trees removed near temple land,Deforestation,False
+illegal forest clearance complaint,Deforestation,False
+forest land being destroyed,Deforestation,False
+trees chopped for commercial use,Deforestation,False
+illegal tree cutting affecting wildlife,Deforestation,False
+forest area cleared for housing,Deforestation,False
+trees felled without environmental clearance,Deforestation,False
+forest destruction ongoing,Deforestation,False
+ped kaat rahe hain jungle mein,Deforestation,False
+trees removed near agricultural land,Deforestation,False
+illegal logging affecting ecosystem,Deforestation,False
+forest area illegally cleared,Deforestation,False
+trees destroyed by construction mafia,Deforestation,False
+unauthorized cutting of green belt,Deforestation,False
+forest trees cut near border area,Deforestation,False
+trees being cut despite ban,Deforestation,False
+illegal deforestation harming nature,Deforestation,False
+forest area damaged beyond repair,Deforestation,False
+trees removed without replantation,Deforestation,False
+forest destruction affecting wildlife,Deforestation,False
+illegal tree cutting not stopped,Deforestation,False
 
-air pollution due to garbage burning,Pollution
-smoke coming from nearby factory,Pollution
-factory fumes affecting residents,Pollution
-bad smell and polluted air,Pollution
-industrial smoke causing breathing issues,Pollution
-chemical waste polluting water,Pollution
-polluted drinking water supplied,Pollution
-toxic smoke affecting locality,Pollution
-pollution level very high today,Pollution
-garbage burning causing smoke,Pollution
-water pollution due to sewage,Pollution
-polluted river water reported,Pollution
-chemical smell in residential area,Pollution
-pollution affecting public health,Pollution
-industrial emissions causing pollution,Pollution
-open garbage burning polluting air,Pollution
-thick smoke in residential area,Pollution
-factory smoke visible every morning,Pollution
-air quality very poor today,Pollution
-toxic fumes released at night,Pollution
-industrial waste dumped in river,Pollution
-sewage mixed with drinking water,Pollution
-bad odor due to pollution,Pollution
-polluted lake water causing sickness,Pollution
-chemical waste leakage reported,Pollution
-pollution causing eye irritation,Pollution
-air filled with smoke and dust,Pollution
-factory releasing black smoke,Pollution
-contaminated water supply issue,Pollution
-pollution due to plastic burning,Pollution
-smell of chemicals in air,Pollution
-industrial pollution increasing daily,Pollution
-toxic gases affecting children,Pollution
-polluted groundwater complaint,Pollution
-air pollution worsening at night,Pollution
-garbage dump causing foul smell,Pollution
-factory waste affecting environment,Pollution
-polluted water causing skin issues,Pollution
-thick smog near industrial area,Pollution
-pollution due to untreated sewage,Pollution
-chemical fumes near houses,Pollution
-air pollution from nearby plant,Pollution
-waste burning causing breathing problem,Pollution
-polluted canal water reported,Pollution
-toxic smell spreading in area,Pollution
-industrial smoke entering homes,Pollution
-pollution harming local residents,Pollution
-air quality hazardous today,Pollution
-factory discharge polluting river,Pollution
-chemical waste dumped openly,Pollution
-smoke due to garbage fire,Pollution
-polluted water supplied to homes,Pollution
-air pollution due to vehicle smoke,Pollution
-industrial pollution not controlled,Pollution
-toxic air causing cough,Pollution
-chemical odor unbearable,Pollution
-pollution affecting elderly people,Pollution
-black smoke from factory chimney,Pollution
-polluted water causing stomach issues,Pollution
-air pollution crossing safe limits,Pollution
-wastewater released into river,Pollution
-toxic gas leak reported,Pollution
-pollution from burning plastic waste,Pollution
-chemical pollution near factory,Pollution
-air pollution causing asthma issues,Pollution
-polluted pond water complaint,Pollution
-smoke and dust everywhere,Pollution
-industrial pollution affecting crops,Pollution
-chemical smell during night,Pollution
-air pollution not monitored,Pollution
-polluted water near residential area,Pollution
-toxic fumes causing headache,Pollution
-factory pollution affecting nearby school,Pollution
-air pollution due to open dumping,Pollution
-chemical waste harming environment,Pollution
-pollution level extremely dangerous,Pollution
-smoke filled streets due to burning waste,Pollution
-polluted river harming aquatic life,Pollution
-industrial smoke continuous issue,Pollution
-air pollution causing throat irritation,Pollution
-contaminated water from pipeline,Pollution
-toxic industrial discharge reported,Pollution
-pollution complaint unresolved,Pollution
+air pollution due to garbage burning,Pollution,False
+smoke coming from nearby factory,Pollution,False
+factory fumes affecting residents,Pollution,False
+bad smell and polluted air,Pollution,False
+industrial smoke causing breathing issues,Pollution,False
+chemical waste polluting water,Pollution,False
+polluted drinking water supplied,Pollution,False
+toxic smoke affecting locality,Pollution,False
+pollution level very high today,Pollution,False
+garbage burning causing smoke,Pollution,False
+water pollution due to sewage,Pollution,False
+polluted river water reported,Pollution,False
+chemical smell in residential area,Pollution,False
+pollution affecting public health,Pollution,False
+industrial emissions causing pollution,Pollution,False
+open garbage burning polluting air,Pollution,False
+thick smoke in residential area,Pollution,False
+factory smoke visible every morning,Pollution,False
+air quality very poor today,Pollution,False
+toxic fumes released at night,Pollution,False
+industrial waste dumped in river,Pollution,False
+sewage mixed with drinking water,Pollution,False
+bad odor due to pollution,Pollution,False
+polluted lake water causing sickness,Pollution,False
+chemical waste leakage reported,Pollution,False
+pollution causing eye irritation,Pollution,False
+air filled with smoke and dust,Pollution,False
+factory releasing black smoke,Pollution,False
+contaminated water supply issue,Pollution,False
+pollution due to plastic burning,Pollution,False
+smell of chemicals in air,Pollution,False
+industrial pollution increasing daily,Pollution,False
+toxic gases affecting children,Pollution,False
+polluted groundwater complaint,Pollution,False
+air pollution worsening at night,Pollution,False
+garbage dump causing foul smell,Pollution,False
+factory waste affecting environment,Pollution,False
+polluted water causing skin issues,Pollution,False
+thick smog near industrial area,Pollution,False
+pollution due to untreated sewage,Pollution,False
+chemical fumes near houses,Pollution,False
+air pollution from nearby plant,Pollution,False
+waste burning causing breathing problem,Pollution,False
+polluted canal water reported,Pollution,False
+toxic smell spreading in area,Pollution,False
+industrial smoke entering homes,Pollution,False
+pollution harming local residents,Pollution,False
+air quality hazardous today,Pollution,False
+factory discharge polluting river,Pollution,False
+chemical waste dumped openly,Pollution,False
+smoke due to garbage fire,Pollution,False
+polluted water supplied to homes,Pollution,False
+air pollution due to vehicle smoke,Pollution,False
+industrial pollution not controlled,Pollution,False
+toxic air causing cough,Pollution,False
+chemical odor unbearable,Pollution,False
+pollution affecting elderly people,Pollution,False
+black smoke from factory chimney,Pollution,False
+polluted water causing stomach issues,Pollution,False
+air pollution crossing safe limits,Pollution,False
+wastewater released into river,Pollution,False
+toxic gas leak reported,Pollution,False
+pollution from burning plastic waste,Pollution,False
+chemical pollution near factory,Pollution,False
+air pollution causing asthma issues,Pollution,False
+polluted pond water complaint,Pollution,False
+smoke and dust everywhere,Pollution,False
+industrial pollution affecting crops,Pollution,False
+chemical smell during night,Pollution,False
+air pollution not monitored,Pollution,False
+polluted water near residential area,Pollution,False
+toxic fumes causing headache,Pollution,False
+factory pollution affecting nearby school,Pollution,False
+air pollution due to open dumping,Pollution,False
+chemical waste harming environment,Pollution,False
+pollution level extremely dangerous,Pollution,False
+smoke filled streets due to burning waste,Pollution,False
+polluted river harming aquatic life,Pollution,False
+industrial smoke continuous issue,Pollution,False
+air pollution causing throat irritation,Pollution,False
+contaminated water from pipeline,Pollution,False
+toxic industrial discharge reported,Pollution,False
+pollution complaint unresolved,Pollution,False
 
-potholes causing traffic problems,Infrastructure
-road broken for months without repair,Infrastructure
-street lights not working,Infrastructure
-footpath damaged and unsafe,Infrastructure
-public road neglected by authorities,Infrastructure
-sadak toot gayi hai,Infrastructure
-collapsed pavement near bus stop,Infrastructure
-damaged road causing accidents,Infrastructure
-street light complaint unresolved,Infrastructure
-road repair work pending,Infrastructure
-poor road condition reported,Infrastructure
-broken footpath creating hazard,Infrastructure
-road maintenance ignored,Infrastructure
-street lights off for weeks,Infrastructure
-damaged public infrastructure reported,Infrastructure
-huge pothole near school gate,Infrastructure
-road full of cracks and holes,Infrastructure
-street light pole fallen on road,Infrastructure
-footpath tiles broken badly,Infrastructure
-main road in very poor condition,Infrastructure
-sadak par gaddhe hi gaddhe hain,Infrastructure
-road caving in after rain,Infrastructure
-street lights flickering at night,Infrastructure
-footpath blocked due to damage,Infrastructure
-bridge approach road damaged,Infrastructure
-no repair done on damaged road,Infrastructure
-road surface completely uneven,Infrastructure
-many street lights not functioning,Infrastructure
-unsafe footpath for pedestrians,Infrastructure
-highway road damaged badly,Infrastructure
-sadak bahut kharab ho gayi hai,Infrastructure
-road full of water-filled potholes,Infrastructure
-street lights missing in area,Infrastructure
-footpath cracked near hospital,Infrastructure
-public road left unattended,Infrastructure
-road damaged due to heavy vehicles,Infrastructure
-street light wires exposed,Infrastructure
-broken footpath near market,Infrastructure
-road sinking near drain,Infrastructure
-sadak ka kaam adhoora hai,Infrastructure
-road condition worsening daily,Infrastructure
-street lights not repaired yet,Infrastructure
-footpath stones loose and risky,Infrastructure
-road damaged after pipeline work,Infrastructure
-long pending road maintenance,Infrastructure
-street lights not turning on,Infrastructure
-footpath unsafe for elderly,Infrastructure
-road full of loose gravel,Infrastructure
-sadak par chalna mushkil hai,Infrastructure
-road edges broken dangerously,Infrastructure
-street light poles rusted,Infrastructure
-footpath damaged by tree roots,Infrastructure
-road needs immediate repair,Infrastructure
-many complaints about road damage,Infrastructure
-street lights completely off,Infrastructure
-footpath broken near bus stand,Infrastructure
-road damaged during monsoon,Infrastructure
-sadak par pani bhar jata hai,Infrastructure
-road surface peeling off,Infrastructure
-street lights missing bulbs,Infrastructure
-footpath uneven and broken,Infrastructure
-road neglected for years,Infrastructure
-no proper road infrastructure,Infrastructure
-street lights causing dark spots,Infrastructure
-footpath collapsed after rain,Infrastructure
-road damaged near railway crossing,Infrastructure
-sadak ka halat bahut kharab hai,Infrastructure
-road full of dust and potholes,Infrastructure
-street lights not installed properly,Infrastructure
-footpath damaged near school,Infrastructure
-road infrastructure failing badly,Infrastructure
-temporary road repair washed away,Infrastructure
-street lights hanging dangerously,Infrastructure
-footpath unsafe at night,Infrastructure
-road damaged by construction work,Infrastructure
-sadak par traffic jam lagta hai,Infrastructure
-road cracks increasing daily,Infrastructure
-street lights broken after storm,Infrastructure
-footpath damaged near residential area,Infrastructure
-road condition unsafe for vehicles,Infrastructure
-no action taken on road complaints,Infrastructure
-street lights not maintained,Infrastructure
-footpath broken near crossing,Infrastructure
-road infrastructure needs upgrade,Infrastructure
+potholes causing traffic problems,Infrastructure,False
+road broken for months without repair,Infrastructure,False
+street lights not working,Infrastructure,False
+footpath damaged and unsafe,Infrastructure,False
+public road neglected by authorities,Infrastructure,False
+sadak toot gayi hai,Infrastructure,False
+collapsed pavement near bus stop,Infrastructure,False
+damaged road causing accidents,Infrastructure,False
+street light complaint unresolved,Infrastructure,False
+road repair work pending,Infrastructure,False
+poor road condition reported,Infrastructure,False
+broken footpath creating hazard,Infrastructure,False
+road maintenance ignored,Infrastructure,False
+street lights off for weeks,Infrastructure,False
+damaged public infrastructure reported,Infrastructure,False
+huge pothole near school gate,Infrastructure,False
+road full of cracks and holes,Infrastructure,False
+street light pole fallen on road,Infrastructure,False
+footpath tiles broken badly,Infrastructure,False
+main road in very poor condition,Infrastructure,False
+sadak par gaddhe hi gaddhe hain,Infrastructure,False
+road caving in after rain,Infrastructure,False
+street lights flickering at night,Infrastructure,False
+footpath blocked due to damage,Infrastructure,False
+bridge approach road damaged,Infrastructure,False
+no repair done on damaged road,Infrastructure,False
+road surface completely uneven,Infrastructure,False
+many street lights not functioning,Infrastructure,False
+unsafe footpath for pedestrians,Infrastructure,False
+highway road damaged badly,Infrastructure,False
+sadak bahut kharab ho gayi hai,Infrastructure,False
+road full of water-filled potholes,Infrastructure,False
+street lights missing in area,Infrastructure,False
+footpath cracked near hospital,Infrastructure,False
+public road left unattended,Infrastructure,False
+road damaged due to heavy vehicles,Infrastructure,False
+street light wires exposed,Infrastructure,False
+broken footpath near market,Infrastructure,False
+road sinking near drain,Infrastructure,False
+sadak ka kaam adhoora hai,Infrastructure,False
+road condition worsening daily,Infrastructure,False
+street lights not repaired yet,Infrastructure,False
+footpath stones loose and risky,Infrastructure,False
+road damaged after pipeline work,Infrastructure,False
+long pending road maintenance,Infrastructure,False
+street lights not turning on,Infrastructure,False
+footpath unsafe for elderly,Infrastructure,False
+road full of loose gravel,Infrastructure,False
+sadak par chalna mushkil hai,Infrastructure,False
+road edges broken dangerously,Infrastructure,False
+street light poles rusted,Infrastructure,False
+footpath damaged by tree roots,Infrastructure,False
+road needs immediate repair,Infrastructure,False
+many complaints about road damage,Infrastructure,False
+street lights completely off,Infrastructure,False
+footpath broken near bus stand,Infrastructure,False
+road damaged during monsoon,Infrastructure,False
+sadak par pani bhar jata hai,Infrastructure,False
+road surface peeling off,Infrastructure,False
+street lights missing bulbs,Infrastructure,False
+footpath uneven and broken,Infrastructure,False
+road neglected for years,Infrastructure,False
+no proper road infrastructure,Infrastructure,False
+street lights causing dark spots,Infrastructure,False
+footpath collapsed after rain,Infrastructure,False
+road damaged near railway crossing,Infrastructure,False
+sadak ka halat bahut kharab hai,Infrastructure,False
+road full of dust and potholes,Infrastructure,False
+street lights not installed properly,Infrastructure,False
+footpath damaged near school,Infrastructure,False
+road infrastructure failing badly,Infrastructure,False
+temporary road repair washed away,Infrastructure,False
+street lights hanging dangerously,Infrastructure,False
+footpath unsafe at night,Infrastructure,False
+road damaged by construction work,Infrastructure,False
+sadak par traffic jam lagta hai,Infrastructure,False
+road cracks increasing daily,Infrastructure,False
+street lights broken after storm,Infrastructure,False
+footpath damaged near residential area,Infrastructure,False
+road condition unsafe for vehicles,Infrastructure,False
+no action taken on road complaints,Infrastructure,False
+street lights not maintained,Infrastructure,False
+footpath broken near crossing,Infrastructure,False
+road infrastructure needs upgrade,Infrastructure,False
+
+fire broke out in residential building,Fire,True
+huge fire reported in market area,Fire,True
+house caught fire late night,Fire,True
+fire accident reported in factory,Fire,True
+building on fire near main road,Fire,True
+shop caught fire suddenly,Fire,True
+fire spreading quickly in warehouse,Fire,True
+gas cylinder explosion caused fire,Fire,True
+fire incident reported in apartment,Fire,True
+firefighters called to control fire,Fire,True
+warehouse fire causing heavy smoke,Fire,True
+fire broke out in parking area,Fire,True
+car caught fire on highway,Fire,True
+massive fire reported in shopping mall,Fire,True
+fire in electrical transformer,Fire,True
+forest fire spreading rapidly,Fire,True
+fire reported in hospital building,Fire,True
+fire accident in school laboratory,Fire,True
+office building caught fire,Fire,True
+fire incident reported in restaurant kitchen,Fire,True
+aag lag gayi hai ghar me,Fire,True
+market me bhayanak aag lag gayi,Fire,True
+factory me aag lagne ki khabar,Fire,True
+building me aag bhadak uthi,Fire,True
+godown me tez aag lag gayi,Fire,True
+cylinder blast se aag lag gayi,Fire,True
+shop me aag lag gayi hai,Fire,True
+hospital ke paas aag lag gayi,Fire,True
+school building me aag lag gayi,Fire,True
+ghar ke kitchen me aag lag gayi,Fire,True
+fire reported in metro station area,Fire,True
+fire spreading in industrial area,Fire,True
+fire accident in chemical factory,Fire,True
+truck caught fire on road,Fire,True
+bus caught fire on highway,Fire,True
+short circuit caused fire in building,Fire,True
+fire incident near petrol pump,Fire,True
+huge flames seen from building,Fire,True
+fire emergency reported by residents,Fire,True
+fire destroying nearby shops,Fire,True
+fire in garbage dump area,Fire,True
+fire broke out in residential colony,Fire,True
+fire seen in electric pole,Fire,True
+fire in construction site,Fire,True
+fire accident reported near railway station,Fire,True
+fire inside warehouse full of goods,Fire,True
+fire in shopping complex basement,Fire,True
+fire spreading through apartment floors,Fire,True
+smoke and fire coming from building,Fire,True
+residential house engulfed in flames,Fire,True
+godown me bhayanak aag lagi hai,Fire,True
+ghar me aag lagne se nuksaan hua,Fire,True
+factory me tez aag bhadak gayi,Fire,True
+market area me aag phail rahi hai,Fire,True
+building se dhua nikal raha hai aur aag lagi hai,Fire,True
+godown me cylinder se aag lag gayi,Fire,True
+road ke paas gaadi me aag lag gayi,Fire,True
+petrol pump ke paas aag lag gayi,Fire,True
+ghar ke bahar khadi car me aag lag gayi,Fire,True
+electric wire se aag lag gayi,Fire,True
+fire reported in textile factory,Fire,True
+fire in hotel kitchen area,Fire,True
+warehouse filled with smoke and fire,Fire,True
+fire broke out in storage building,Fire,True
+fire in parking basement,Fire,True
+industrial machine caught fire,Fire,True
+fire incident reported near bus stand,Fire,True
+fire destroying wooden houses,Fire,True
+fire spreading in slum area,Fire,True
+fire reported in cinema hall,Fire,True
+aag lagne se pura ghar jal gaya,Fire,True
+warehouse me bhayanak aag lag gayi,Fire,True
+factory ke andar aag lag gayi,Fire,True
+ghar ke chhat par aag lag gayi,Fire,True
+market ke godown me aag lagi hai,Fire,True
+fire in oil storage area,Fire,True
+fire in chemical storage unit,Fire,True
+massive flames seen from warehouse,Fire,True
+fire incident causing panic in area,Fire,True
+residents reporting fire emergency,Fire,True
+
+waterlogging reported on main road,Flood,True
+heavy rain caused flooding in area,Flood,True
+streets filled with rain water,Flood,True
+houses flooded after heavy rainfall,Flood,True
+drain overflow causing flood,Flood,True
+water entered residential houses,Flood,True
+flood water blocking traffic,Flood,True
+river water entered nearby villages,Flood,True
+severe flooding reported in city,Flood,True
+roads submerged in water,Flood,True
+ghar me pani ghus gaya,Flood,True
+sadak par pani bhar gaya,Flood,True
+bahut tez barish se pani bhar gaya,Flood,True
+nala overflow ho gaya hai,Flood,True
+gali me ghutne tak pani bhar gaya,Flood,True
+water logging near hospital,Flood,True
+school area flooded after rain,Flood,True
+basement filled with water,Flood,True
+flood water damaging houses,Flood,True
+cars stuck in flood water,Flood,True
+bridge submerged due to flood,Flood,True
+heavy rainfall flooded market,Flood,True
+water blocking main highway,Flood,True
+flood water entering shops,Flood,True
+low lying areas flooded badly,Flood,True
+water rising rapidly in streets,Flood,True
+village roads submerged in water,Flood,True
+flooding near railway station,Flood,True
+drainage failure caused flood,Flood,True
+water flooding parking area,Flood,True
+nadi ka pani badh gaya,Flood,True
+barish se pura area doob gaya,Flood,True
+ghar ke andar pani bhar gaya,Flood,True
+sadak par bahut pani bhar gaya,Flood,True
+gali me pani jama ho gaya,Flood,True
+water level increasing rapidly,Flood,True
+heavy flood after continuous rain,Flood,True
+storm water flooding houses,Flood,True
+water entered underground parking,Flood,True
+flood reported near bus stand,Flood,True
+severe waterlogging in colony,Flood,True
+roads flooded after monsoon rain,Flood,True
+water flooding residential colony,Flood,True
+overflowing drain causing flood,Flood,True
+heavy rain causing water blockage,Flood,True
+vehicles stuck due to flood water,Flood,True
+river overflow causing flood,Flood,True
+flood warning issued for area,Flood,True
+rain water flooding streets,Flood,True
+pani bharne se traffic jam,Flood,True
+nala ka pani sadak par aa gaya,Flood,True
+gali me pani hi pani hai,Flood,True
+barish se ghar doob gaye,Flood,True
+sadak pani me doob gayi,Flood,True
+sewer overflow causing flood,Flood,True
+water rising near houses,Flood,True
+flooding in industrial area,Flood,True
+water covering railway track,Flood,True
+houses damaged by flood water,Flood,True
+severe flood emergency reported,Flood,True
+pani bharne se gadiyan phas gayi,Flood,True
+barish se sadak doob gayi,Flood,True
+gali me bahut pani jama hai,Flood,True
+ghar ke bahar pani hi pani,Flood,True
+flood water entering school,Flood,True
+hospital entrance flooded,Flood,True
+heavy rain flooded bus stand,Flood,True
+roads blocked by flood water,Flood,True
+rain water flooding market,Flood,True
+waterlogging causing accidents,Flood,True
+residents trapped due to flood,Flood,True
+houses surrounded by flood water,Flood,True
+severe flood damage reported,Flood,True
+rain water filling streets,Flood,True
+low areas flooded quickly,Flood,True
+flood water damaging roads,Flood,True
+heavy rain flood emergency,Flood,True
+people stuck in flooded area,Flood,True
+major flooding reported nearby,Flood,True
+
+robbery reported in local shop,Crime,True
+theft reported in residential area,Crime,True
+bike stolen from parking,Crime,True
+mobile phone snatched on road,Crime,True
+burglary reported in house,Crime,True
+armed robbery in bank,Crime,True
+chain snatching incident reported,Crime,True
+thief broke into house,Crime,True
+wallet stolen in market,Crime,True
+criminal activity reported nearby,Crime,True
+ghar me chori ho gayi,Crime,True
+bike chori ho gayi,Crime,True
+mobile chhin liya gaya,Crime,True
+market me chori ho gayi,Crime,True
+chain snatching ka case hua,Crime,True
+robbers attacked shop owner,Crime,True
+criminals looted cash from store,Crime,True
+house burglary reported at night,Crime,True
+shop looted by criminals,Crime,True
+robbery reported near bank,Crime,True
+purse chori ho gaya,Crime,True
+ghar me chor ghus gaye,Crime,True
+sadak par mobile chhin gaya,Crime,True
+market me loot ho gayi,Crime,True
+bike parking se chori ho gayi,Crime,True
+robbery reported in jewelry shop,Crime,True
+criminals attacked passerby,Crime,True
+thieves stole valuables from house,Crime,True
+attempted robbery reported,Crime,True
+gang robbery reported in area,Crime,True
+robbery in ATM booth,Crime,True
+thief caught stealing phone,Crime,True
+crime incident reported in colony,Crime,True
+robbers looted passengers in bus,Crime,True
+criminals broke ATM machine,Crime,True
+wallet snatched by biker,Crime,True
+theft reported in office building,Crime,True
+criminal attack reported on road,Crime,True
+robbery near railway station,Crime,True
+robbers threatened shopkeeper,Crime,True
+bike theft reported outside mall,Crime,True
+criminals stole cash from shop,Crime,True
+house looted during night,Crime,True
+snatching incident reported,Flood,True
+robbers escaped after theft,Crime,True
+thieves broke shop lock,Crime,True
+loot reported in jewelry store,Crime,True
+robbers attacked security guard,Crime,True
+chain snatching near market,Crime,True
+criminals broke house window,Crime,True
+chor ghar me ghus aaye,Crime,True
+mobile chori ho gaya,Crime,True
+gadi chori ho gayi,Crime,True
+sadak par loot ho gayi,Crime,True
+market me chain snatching hui,Crime,True
+robbery reported in supermarket,Crime,True
+criminal activity in parking area,Crime,True
+thieves stole laptop from office,Crime,True
+robbers attacked traveler,Crime,True
+crime reported near bus stand,Crime,True
+theft reported in hostel,Flood,True
+robbers stole jewelry from house,Crime,True
+thieves entered building illegally,Crime,True
+shop robbed during night,Crime,True
+criminals looted grocery store,Crime,True
+wallet stolen from passenger,Crime,True
+robbery attempt in ATM center,Crime,True
+criminals stole cash bag,Crime,True
+bike snatching reported,Crime,True
+robbers attacked pedestrian,Crime,True
+robbery incident reported nearby,Crime,True
+criminal gang looted shop,Crime,True
+robbers forced entry in house,Crime,True
+crime activity reported in market,Crime,True
+criminals stole valuables,Crime,True
+robbery incident in neighborhood,Crime,True
+theft reported from parked car,Crime,True
+major robbery reported in area,Crime,True
+
+person collapsed on road,Medical Emergency,True
+man unconscious in market area,Medical Emergency,True
+woman fainted in bus stand,Medical Emergency,True
+medical emergency reported in office,Medical Emergency,True
+person having severe chest pain,Medical Emergency,True
+patient needs immediate ambulance,Medical Emergency,True
+person having breathing difficulty,Medical Emergency,True
+man injured and bleeding heavily,Medical Emergency,True
+woman unconscious in house,Medical Emergency,True
+person suffering from heart attack,Medical Emergency,True
+sadak par aadmi behosh ho gaya,Medical Emergency,True
+ghar me kisi ki tabiyat bahut kharab hai,Medical Emergency,True
+ek aadmi gir kar behosh ho gaya,Medical Emergency,True
+kisi ko heart attack aa gaya hai,Medical Emergency,True
+ek lady ko saans lene me dikkat ho rahi hai,Medical Emergency,True
+child fainted in school,Medical Emergency,True
+patient needs urgent medical help,Medical Emergency,True
+person suffering from severe injury,Medical Emergency,True
+medical help required immediately,Medical Emergency,True
+man bleeding after fall,Medical Emergency,True
+woman complaining of chest pain,Medical Emergency,True
+person injured badly in home,Medical Emergency,True
+patient unconscious and not responding,Medical Emergency,True
+old man collapsed near temple,Medical Emergency,True
+woman having severe dizziness,Medical Emergency,True
+sadak par ek aadmi gir gaya hai,Medical Emergency,True
+ek vyakti ko turant doctor chahiye,Medical Emergency,True
+bacha behosh ho gaya hai,Medical Emergency,True
+kisi ko tez chakkar aa raha hai,Medical Emergency,True
+ghar me medical emergency ho gayi hai,Medical Emergency,True
+person vomiting continuously,Medical Emergency,True
+patient having severe stomach pain,Medical Emergency,True
+person having seizure attack,Medical Emergency,True
+man injured and unable to move,Medical Emergency,True
+lady collapsed in shopping mall,Medical Emergency,True
+medical emergency in school classroom,Medical Emergency,True
+person bleeding after accident,Medical Emergency,True
+man complaining severe headache,Medical Emergency,True
+woman unable to breathe properly,Medical Emergency,True
+patient requires oxygen support,Medical Emergency,True
+old woman unconscious at home,Medical Emergency,True
+person severely injured needs help,Medical Emergency,True
+medical emergency in train station,Medical Emergency,True
+person collapsed during walk,Medical Emergency,True
+patient suffering from stroke symptoms,Medical Emergency,True
+man lying unconscious on street,Medical Emergency,True
+lady fainted in office building,Medical Emergency,True
+person badly injured in fall,Medical Emergency,True
+urgent medical help required,Medical Emergency,True
+patient not responding needs ambulance,Medical Emergency,True
+ek aadmi ko bahut tez dard ho raha hai,Medical Emergency,True
+ek vyakti ko turant hospital le jana hai,Medical Emergency,True
+buzurg aadmi behosh ho gaye hain,Medical Emergency,True
+lady ko achanak chakkar aa gaya,Medical Emergency,True
+ghar me kisi ki tabiyat bahut bigad gayi hai,Medical Emergency,True
+person injured and crying for help,Medical Emergency,True
+patient breathing heavily,Medical Emergency,True
+person unable to stand due to injury,Medical Emergency,True
+medical emergency near bus stand,Medical Emergency,True
+patient suffering severe pain,Medical Emergency,True
+man collapsed in public place,Medical Emergency,True
+woman injured and bleeding,Medical Emergency,True
+person unconscious after fall,Medical Emergency,True
+child injured during play,Medical Emergency,True
+medical emergency reported nearby,Medical Emergency,True
+person having sudden chest pain,Medical Emergency,True
+patient needs urgent treatment,Medical Emergency,True
+person unable to wake up,Medical Emergency,True
+woman collapsed on street,Medical Emergency,True
+medical emergency in residential area,Medical Emergency,True
+person suffering from high fever and weakness,Medical Emergency,True
+patient vomiting blood,Medical Emergency,True
+person injured by fall from stairs,Medical Emergency,True
+urgent ambulance required here,Medical Emergency,True
+patient not breathing properly,Medical Emergency,True
+person unconscious near park,Medical Emergency,True
+serious medical emergency reported,Medical Emergency,True
+
+car accident reported on highway,Accident,True
+bike accident near market area,Accident,True
+two vehicles collided on road,Accident,True
+major road accident reported,Accident,True
+bus hit a motorcycle,Accident,True
+truck accident blocking road,Accident,True
+car crashed into divider,Accident,True
+bike skid caused accident,Accident,True
+serious accident near bridge,Accident,True
+vehicle overturned on highway,Accident,True
+sadak par accident ho gaya,Accident,True
+bike aur car ka accident ho gaya,Accident,True
+sadak par do gadi takra gayi,Accident,True
+ek truck palat gaya hai,Accident,True
+bus ka accident ho gaya,Accident,True
+car hit pedestrian on road,Accident,True
+bike rider injured in accident,Accident,True
+major collision reported on highway,Accident,True
+truck hit roadside pole,Accident,True
+vehicle crashed into shop,Accident,True
+sadak par gadi palat gayi,Accident,True
+bike se gir kar accident ho gaya,Accident,True
+gadi divider se takra gayi,Accident,True
+road par bada accident hua hai,Accident,True
+car aur truck ki takkar ho gayi,Accident,True
+bus accident reported near school,Accident,True
+multiple vehicle accident reported,Accident,True
+bike rider fell after collision,Accident,True
+car hit roadside tree,Accident,True
+road accident causing traffic jam,Accident,True
+truck collided with bus,Accident,True
+car lost control and crashed,Accident,True
+bike accident causing injuries,Accident,True
+vehicle accident near bus stand,Accident,True
+major accident on expressway,Accident,True
+sadak par gadi phisal kar gir gayi,Accident,True
+bike se gir kar chot lag gayi,Accident,True
+do gadiyon ki zor se takkar hui,Accident,True
+truck aur car ki takkar ho gayi,Accident,True
+road accident near railway crossing,Accident,True
+car hit electric pole,Accident,True
+bike crash reported in city,Accident,True
+bus collided with truck,Accident,True
+car accident near hospital,Accident,True
+two bikes collided on road,Accident,True
+vehicle crashed into wall,Accident,True
+truck accident blocking highway,Accident,True
+bike accident near traffic signal,Accident,True
+car accident in parking area,Accident,True
+major crash reported nearby,Accident,True
+sadak par bhayanak accident hua hai,Accident,True
+gadi takra kar toot gayi,Accident,True
+bike aur bus ki takkar ho gayi,Accident,True
+truck ne car ko takkar mar di,Accident,True
+road accident causing injuries,Accident,True
+vehicle flipped after collision,Accident,True
+car accident reported in colony,Accident,True
+bike rider hit by car,Accident,True
+truck overturned near market,Accident,True
+road crash reported near bridge,Accident,True
+bus accident causing panic,Accident,True
+vehicle crash blocking road,Accident,True
+car and bike collision reported,Accident,True
+truck crash on highway,Accident,True
+serious accident near junction,Accident,True
+bike accident causing heavy injury,Accident,True
+vehicle accident near traffic light,Accident,True
+car hit pedestrian crossing road,Accident,True
+major accident reported in city,Accident,True
+vehicle damaged after crash,Accident,True
+truck accident causing road block,Accident,True
+car crashed into roadside shop,Accident,True
+bike accident reported near school,Accident,True
+road accident emergency reported,Accident,True
+vehicle collision near market,Accident,True
+multiple car crash reported,Accident,True
+serious traffic accident nearby,Accident,True
+
+power outage reported in area,Power Outage,True
+electricity not working since morning,Power Outage,True
+complete blackout in neighborhood,Power Outage,True
+power cut affecting entire colony,Power Outage,True
+transformer burst causing outage,Power Outage,True
+electric pole spark reported,Power Outage,True
+high voltage line damaged,Power Outage,True
+power supply disrupted suddenly,Power Outage,True
+electric transformer caught fire,Power Outage,True
+area facing long power outage,Power Outage,True
+bijli chali gayi hai,Power Outage,True
+poore area me light nahi hai,Power Outage,True
+transformer phat gaya hai,Power Outage,True
+bijli ki line toot gayi hai,Power Outage,True
+electric pole se spark ho raha hai,Power Outage,True
+power cut since last night,Power Outage,True
+electricity failure reported nearby,Power Outage,True
+electric line fallen on road,Power Outage,True
+power outage near hospital area,Power Outage,True
+transformer damage causing blackout,Power Outage,True
+sudden electricity failure in market,Power Outage,True
+electric pole broken after storm,Power Outage,True
+power supply unstable in area,Power Outage,True
+frequent power cuts reported,Power Outage,True
+electric wire hanging dangerously,Power Outage,True
+electric shock incident reported,Power Outage,True
+bijli ki taar sadak par gir gayi,Power Outage,True
+transformer se dhua nikal raha hai,Power Outage,True
+light blink ho rahi hai baar baar,Power Outage,True
+bijli ki supply band hai,Power Outage,True
+power failure in residential colony,Power Outage,True
+electric transformer overloaded,Power Outage,True
+power line damage due to rain,Power Outage,True
+electricity outage affecting traffic lights,Power Outage,True
+street without electricity at night,Power Outage,True
+power outage causing panic,Power Outage,True
+electric pole leaning dangerously,Power Outage,True
+electric line snapped during storm,Power Outage,True
+power disruption reported citywide,Power Outage,True
+electric transformer malfunction,Power Outage,True
+bijli ki taar se chingari nikal rahi hai,Power Outage,True
+light poori raat nahi aayi,Power Outage,True
+transformer jal gaya hai,Power Outage,True
+bijli ki problem chal rahi hai,Power Outage,True
+area me power supply band hai,Power Outage,True
+electric pole damaged in accident,Power Outage,True
+power outage near school,Power Outage,True
+electricity failure affecting hospital,Power Outage,True
+transformer overheating reported,Power Outage,True
+power line broken near road,Power Outage,True
+bijli ki taar latak rahi hai,Power Outage,True
+bijli ka transformer kharab ho gaya,Power Outage,True
+light aati jaati rehti hai,Power Outage,True
+area me voltage bahut low hai,Power Outage,True
+bijli ki line se spark aa raha hai,Power Outage,True
+electric shock risk reported,Power Outage,True
+transformer noise and smoke reported,Power Outage,True
+power outage in commercial area,Power Outage,True
+electricity down after heavy rain,Power Outage,True
+power failure causing traffic signal issue,Power Outage,True
+bijli ki supply ruki hui hai,Power Outage,True
+light problem in entire street,Power Outage,True
+electric pole damaged badly,Power Outage,True
+power cable cut accidentally,Power Outage,True
+transformer explosion reported,Power Outage,True
+electricity issue affecting homes,Power Outage,True
+area without electricity for hours,Power Outage,True
+electric line broken near market,Power Outage,True
+power failure near railway station,Power Outage,True
+electric pole fire incident reported,Power Outage,True
+power outage in apartment complex,Power Outage,True
+electric line touching tree branches,Power Outage,True
+transformer short circuit reported,Power Outage,True
+power outage affecting water pumps,Power Outage,True
+electricity emergency reported nearby,Power Outage,True
+
+online bank fraud reported,Cyber Crime,True
+phishing email received asking for bank details,Cyber Crime,True
+someone hacked my social media account,Cyber Crime,True
+credit card fraud detected,Cyber Crime,True
+online scam reported in payment app,Cyber Crime,True
+fake website stealing login information,Cyber Crime,True
+unauthorized transaction from bank account,Cyber Crime,True
+otp fraud reported,Cyber Crime,True
+cyber attack on company server,Cyber Crime,True
+identity theft reported online,Cyber Crime,True
+mere bank account se paise nikal gaye,Cyber Crime,True
+kisi ne mera social media account hack kar liya,Cyber Crime,True
+online fraud ho gaya hai,Cyber Crime,True
+fake call se bank details le li,Cyber Crime,True
+otp share karne ke baad paise kat gaye,Cyber Crime,True
+phishing link se account hack ho gaya,Cyber Crime,True
+online shopping fraud reported,Cyber Crime,True
+fake job scam reported,Cyber Crime,True
+crypto investment scam reported,Cyber Crime,True
+malicious software detected on computer,Cyber Crime,True
+hacker accessed personal email account,Cyber Crime,True
+fake payment request received,Cyber Crime,True
+online lottery scam reported,Cyber Crime,True
+fraud message asking for otp,Cyber Crime,True
+bank account hacked by cyber criminals,Cyber Crime,True
+mobile app scam reported,Cyber Crime,True
+fake online investment scheme,Cyber Crime,True
+fraud call pretending to be bank officer,Cyber Crime,True
+personal data leaked online,Cyber Crime,True
+fake social media profile created,Cyber Crime,True
+mere account se unauthorized transaction hua,Cyber Crime,True
+kisi ne mera email hack kar diya,Cyber Crime,True
+online payment fraud ho gaya,Cyber Crime,True
+fake website par payment kar diya,Cyber Crime,True
+online scam se paise chori ho gaye,Cyber Crime,True
+ransomware attack reported,Cyber Crime,True
+computer infected with malware,Cyber Crime,True
+cyber criminals stole confidential data,Cyber Crime,True
+fraud link sent through whatsapp,Cyber Crime,True
+fake customer care scam,Cyber Crime,True
+social media account compromised,Cyber Crime,True
+unauthorized login attempt detected,Cyber Crime,True
+online blackmail reported,Cyber Crime,True
+cyber stalking incident reported,Cyber Crime,True
+fake advertisement scam online,Cyber Crime,True
+credit card details stolen online,Cyber Crime,True
+data breach reported in company,Cyber Crime,True
+online gaming fraud reported,Cyber Crime,True
+fake loan app scam,Cyber Crime,True
+scammer asking for payment online,Cyber Crime,True
+bank fraud through phishing call,Cyber Crime,True
+kisi ne mera otp lekar paise nikal liye,Cyber Crime,True
+fake message se account hack ho gaya,Cyber Crime,True
+online investment fraud hua,Cyber Crime,True
+kisi ne mera atm details chura li,Cyber Crime,True
+cyber fraud through fake website,Cyber Crime,True
+scam email pretending government agency,Cyber Crime,True
+fake courier scam asking payment,Cyber Crime,True
+identity fraud using stolen documents,Cyber Crime,True
+online banking credentials stolen,Cyber Crime,True
+cyber criminals accessed database,Cyber Crime,True
+fraud transaction detected online,Cyber Crime,True
+hacker accessed company network,Cyber Crime,True
+malware attack reported,Cyber Crime,True
+online account compromised,Cyber Crime,True
+fake investment app scam,Cyber Crime,True
+scammer pretending tech support,Cyber Crime,True
+phishing attack targeting users,Cyber Crime,True
+cyber fraud reported on payment gateway,Cyber Crime,True
+online extortion case reported,Cyber Crime,True
+fraudulent transaction from debit card,Cyber Crime,True
+kisi ne mera online wallet hack kar liya,Cyber Crime,True
+fake link par click karne se account hack ho gaya,Cyber Crime,True
+online job fraud me paise le liye,Cyber Crime,True
+cyber crime complaint registered,Cyber Crime,True
+data theft from company server,Cyber Crime,True
+online scam through social media,Cyber Crime,True
+digital payment fraud reported,Cyber Crime,True
+cyber criminals stealing user data,Cyber Crime,True

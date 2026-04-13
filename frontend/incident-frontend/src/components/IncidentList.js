@@ -5,224 +5,429 @@ import {
   Card,
   Button,
   Alert,
-  Badge,
   Row,
   Col,
   Spinner,
   Form,
   Modal,
   Toast,
-  OverlayTrigger,
-  Tooltip,
   ProgressBar
 } from "react-bootstrap";
+
 import { useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import utc from "dayjs/plugin/utc";
+import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable";
+
 import IncidentCharts from "./IncidentCharts";
+
+import LiveIncidentFeed from "../components/LiveIncidentFeed";
 
 dayjs.extend(relativeTime);
 dayjs.extend(utc);
 
+const API = "http://127.0.0.1:8000/api";
+
 const IncidentList = () => {
+
   const [incidents, setIncidents] = useState([]);
   const [filteredIncidents, setFilteredIncidents] = useState([]);
-  const [prevIncidents, setPrevIncidents] = useState([]);
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
-  const [selectedCategory, setSelectedCategory] = useState("All");
-  const [toast, setToast] = useState({ show: false, message: "", variant: "success" });
+  const [departmentFilter, setDepartmentFilter] = useState("All");
 
-  const [currentUser, setCurrentUser] = useState({ username: "", is_staff: false });
+  const [currentUser, setCurrentUser] = useState({
+    username: "",
+    is_staff: false
+  });
+
+  const [toast, setToast] = useState({
+    show: false,
+    message: "",
+    variant: "success"
+  });
 
   const [showImage, setShowImage] = useState(false);
   const [activeImage, setActiveImage] = useState(null);
 
   const navigate = useNavigate();
-  const [expandedLogs, setExpandedLogs] = useState({});
-  const [departmentFilter, setDepartmentFilter] = useState("All");
 
+  const token = localStorage.getItem("access");
+
+  const axiosConfig = {
+    headers: { Authorization: `Bearer ${token}` }
+  };
+
+  // =========================
+  // SLA OVERDUE CHECK (24h)
+  // =========================
+  const isOverdue = (incident) => {
+    if (incident.status === "resolved") return false;
+
+    const created = dayjs.utc(incident.created_at);
+    const now = dayjs.utc();
+
+    const hours = now.diff(created, "hour");
+
+    return hours >= 24;
+  };
 
   // Fetch current user
   useEffect(() => {
-    const fetchCurrentUser = async () => {
+    const fetchUser = async () => {
       try {
-        const token = localStorage.getItem("access");
-        const res = await axios.get("http://127.0.0.1:8000/api/user/", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        setCurrentUser({ username: res.data.username, is_staff: res.data.is_staff });
+        const res = await axios.get(`${API}/user/`, axiosConfig);
+        setCurrentUser(res.data);
       } catch (err) {
-        console.error("Failed to fetch current user", err);
+        console.error("User fetch failed", err);
       }
     };
-    fetchCurrentUser();
+
+    fetchUser();
   }, []);
 
   // Fetch incidents
   const fetchIncidents = async () => {
     try {
-      const token = localStorage.getItem("access");
-      const res = await axios.get("http://127.0.0.1:8000/api/incidents/", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      const newIncidents = res.data.map(i => ({
+
+      const res = await axios.get(`${API}/incidents/`, axiosConfig);
+
+      const formatted = res.data.map(i => ({
         ...i,
         department: i.department || "Municipality",
         category: i.category || "General Issue",
+        logs: i.logs || []
       }));
 
+    const sorted = sortByStatusPriority(formatted);
 
-      // Show toast if a new incident is reported
-      if (prevIncidents.length && newIncidents.length > prevIncidents.length) {
-        setToast({ show: true, message: "New incident reported!", variant: "info" });
-      }
+setIncidents(sorted);
+setFilteredIncidents(sorted);
 
-      setPrevIncidents(incidents);
-      setIncidents(newIncidents);
-      setFilteredIncidents(newIncidents);
+
+
     } catch {
+
       setError("Failed to load incidents");
+
     } finally {
+
       setLoading(false);
+
     }
   };
+// =========================
+// STATUS PRIORITY SORT
+// =========================
+const sortByStatusPriority = (data) => {
 
-  // Initial fetch
-  useEffect(() => { fetchIncidents(); }, []);
+  const priority = {
+    "pending": 1,
+    "in progress": 2,
+    "resolved": 3
+  };
 
-  // Polling every 10 seconds
+  return [...data].sort((a, b) => {
+
+    const statusA = priority[a.status?.toLowerCase()] || 99;
+    const statusB = priority[b.status?.toLowerCase()] || 99;
+
+    // First sort by status priority
+    if (statusA !== statusB) {
+      return statusA - statusB;
+    }
+
+    // Then sort by time inside each group
+    const dateA = new Date(a.created_at);
+    const dateB = new Date(b.created_at);
+
+    // Pending → newest first
+    if (a.status === "pending") {
+      return dateB - dateA;
+    }
+
+    // In progress → oldest first (SLA priority)
+    if (a.status === "in progress") {
+      return dateA - dateB;
+    }
+
+    // Resolved → newest last
+    return dateA - dateB;
+
+  });
+};
+
+
+
+  useEffect(() => {
+    fetchIncidents();
+  }, []);
+
   useEffect(() => {
     const interval = setInterval(fetchIncidents, 10000);
     return () => clearInterval(interval);
   }, []);
 
   // Filters
-  useEffect(() => {
-    let data = [...incidents];
+ useEffect(() => {
 
-    if (statusFilter !== "all") data = data.filter(i => i.status === statusFilter);
-    if (selectedCategory !== "All") data = data.filter(i => i.category === selectedCategory);
-    // ✅ Department filter
-    if (departmentFilter !== "All") {
-      data = data.filter(
-        i => (i.department || "Municipality") === departmentFilter
-      );
-    }
+  let data = [...incidents];
 
-    if (search.trim()) {
-      const term = search.toLowerCase();
-      data = data.filter(i =>
-        i.title.toLowerCase().includes(term) ||
-        i.description.toLowerCase().includes(term) ||
-        i.user?.username.toLowerCase().includes(term)
-      );
-    }
+  if (statusFilter !== "all") {
+    data = data.filter(i => i.status === statusFilter);
+  }
 
-    setFilteredIncidents(data);
-  }, [search, statusFilter, selectedCategory,departmentFilter, incidents]);
+  if (departmentFilter !== "All") {
+    data = data.filter(i => i.department === departmentFilter);
+  }
 
-  // Helpers
-  const getImageUrl = (url) => url?.startsWith("http") ? url : `http://127.0.0.1:8000${url}`;
-  const getConfidencePercent = (confidence) => confidence ? Math.round(confidence * 100) : 0;
-  const getConfidenceVariant = (percent) => percent >= 70 ? "success" : percent >= 40 ? "warning" : "danger";
-  const getConfidenceEmoji = (percent) => percent >= 70 ? "🔥" : percent >= 40 ? "⚠️" : "❄️";
+  if (search.trim()) {
 
-  const getCategoryBadge = (category, confidence) => {
-    if (!category) return <Badge bg="secondary">Needs Review</Badge>;
-    const percent = getConfidencePercent(confidence);
-    let color = "danger";
-    if (percent >= 70) color = "success";
-    else if (percent >= 40) color = "warning";
-    return (
-      <OverlayTrigger placement="top" overlay={<Tooltip>ML confidence: {percent}%</Tooltip>}>
-        <Badge bg={color} className="me-2" style={{ cursor: "pointer", fontWeight: 500 }}>
-          {category} ({percent}%)
-        </Badge>
-      </OverlayTrigger>
+    const term = search.toLowerCase();
+
+    data = data.filter(i =>
+      i.title.toLowerCase().includes(term) ||
+      i.description.toLowerCase().includes(term) ||
+      i.user?.username.toLowerCase().includes(term)
     );
+  }
+
+  // Sort by status priority
+  setFilteredIncidents(sortByStatusPriority(data));
+
+}, [search, statusFilter, departmentFilter, incidents]);
+
+  const getImageUrl = (url) => {
+    if (!url) return null;
+    return url.startsWith("http") ? url : `http://127.0.0.1:8000${url}`;
   };
 
-  const getStatusBadge = (status) => {
-    const map = { pending: "secondary", "in progress": "warning", resolved: "success" };
-    return <Badge bg={map[status] || "dark"} className="ms-2" style={{ fontWeight: 500, padding: "0.35em 0.6em" }}>{status.toUpperCase()}</Badge>;
+  const getConfidencePercent = (c) => c ? Math.round(c * 100) : 0;
+
+  const getConfidenceVariant = (p) => {
+    if (p >= 70) return "success";
+    if (p >= 40) return "warning";
+    return "danger";
   };
 
-  // Actions
+  const getConfidenceEmoji = (p) => {
+    if (p >= 70) return "🔥";
+    if (p >= 40) return "⚠️";
+    return "❄️";
+  };
+
+  // =========================
+  // EXPORT CSV
+  // =========================
+  const exportCSV = () => {
+
+    const headers = [
+      "ID",
+      "Title",
+      "Category",
+      "Department",
+      "Status",
+      "Reported By",
+      "Date"
+    ];
+
+    const rows = filteredIncidents.map(i => [
+      i.id,
+      i.title,
+      i.category,
+      i.department,
+      i.status,
+      i.user?.username,
+      dayjs(i.created_at).format("YYYY-MM-DD HH:mm")
+    ]);
+
+    let csvContent =
+      "data:text/csv;charset=utf-8," +
+      [headers, ...rows].map(e => e.join(",")).join("\n");
+
+    const link = document.createElement("a");
+    link.href = encodeURI(csvContent);
+    link.download = "incident_report.csv";
+    link.click();
+  };
+
+  // =========================
+  // EXPORT PDF
+  // =========================
+  const exportPDF = () => {
+
+    const doc = new jsPDF();
+
+    doc.text("Incident Report", 14, 15);
+
+    const rows = filteredIncidents.map(i => [
+      i.id,
+      i.title,
+      i.category,
+      i.department,
+      i.status,
+      i.user?.username,
+      dayjs(i.created_at).format("YYYY-MM-DD")
+    ]);
+
+    autoTable(doc, {
+      head: [["ID", "Title", "Category", "Department", "Status", "User", "Date"]],
+      body: rows,
+      startY: 20
+    });
+
+    doc.save("incident_report.pdf");
+  };
+
   const handleDelete = async (id) => {
+
     if (!window.confirm("Delete this incident?")) return;
+
     try {
-      const token = localStorage.getItem("access");
-      await axios.delete(`http://127.0.0.1:8000/api/incidents/${id}/`, {
-        headers: { Authorization: `Bearer ${token}` },
+
+      await axios.delete(`${API}/incidents/${id}/`, axiosConfig);
+
+      setIncidents(prev =>
+  sortByStatusPriority(
+    prev.filter(i => i.id !== id)
+  )
+);
+
+
+      setToast({
+        show: true,
+        message: "Incident deleted",
+        variant: "success"
       });
-      setIncidents(prev => prev.filter(i => i.id !== id));
-      setToast({ show: true, message: "Incident deleted successfully", variant: "success" });
-    } catch (err) {
-      console.error(err);
-      setToast({ show: true, message: "Delete failed", variant: "danger" });
+
+    } catch {
+
+      setToast({
+        show: true,
+        message: "Delete failed",
+        variant: "danger"
+      });
+
     }
   };
 
-  const updateCategory = async (id, category) => {
-    try {
-      const token = localStorage.getItem("access");
-      await axios.patch(`http://127.0.0.1:8000/api/incidents/${id}/`, { category }, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      setIncidents(prev => prev.map(i => i.id === id ? { ...i, category } : i));
-      setToast({ show: true, message: `Category updated to "${category}"`, variant: "success" });
-    } catch {
-      setToast({ show: true, message: "Category update failed", variant: "danger" });
-    }
-  };
+ const updateCategory = async (id, category) => {
+
+  try {
+
+    await axios.patch(`${API}/incidents/${id}/`, { category }, axiosConfig);
+
+    setIncidents(prev => {
+      const updated = prev.map(i =>
+        i.id === id ? { ...i, category } : i
+      );
+
+      return sortByStatusPriority(updated);
+    });
+
+    setToast({
+      show: true,
+      message: "Category updated",
+      variant: "success"
+    });
+
+  } catch {
+
+    setToast({
+      show: true,
+      message: "Update failed",
+      variant: "danger"
+    });
+
+  }
+};
 
   const handleStatusChange = async (id, status) => {
-    try {
-      const token = localStorage.getItem("access");
-      await axios.patch(`http://127.0.0.1:8000/api/incidents/${id}/`, { status }, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      setIncidents(prev => prev.map(i => i.id === id ? { ...i, status } : i));
-      setToast({ show: true, message: `Status updated to "${status}"`, variant: "success" });
-    } catch {
-      setToast({ show: true, message: "Status update failed", variant: "danger" });
-    }
-  };
+
+  try {
+
+    await axios.patch(`${API}/incidents/${id}/`, { status }, axiosConfig);
+
+    setIncidents(prev => {
+      const updated = prev.map(i =>
+        i.id === id ? { ...i, status } : i
+      );
+
+      return sortByStatusPriority(updated);
+    });
+
+    setToast({
+      show: true,
+      message: "Status updated",
+      variant: "success"
+    });
+
+  } catch {
+
+    setToast({
+      show: true,
+      message: "Status update failed",
+      variant: "danger"
+    });
+
+  }
+};
+
 
   return (
+
     <div style={{ minHeight: "100vh", padding: "40px 20px" }}>
+
       <div className="container">
-        <h2 className="fw-bold text-primary mb-4">Civic & Environmental Reports</h2>
 
+        <h2 className="fw-bold text-primary mb-4">
+          Civic & Environmental Reports
+        </h2>
 
-        {/* Filters */}
+        {currentUser.is_staff && (
+
+          <div className="mb-3 d-flex gap-2">
+
+            <Button variant="success" onClick={exportCSV}>
+              Export CSV
+            </Button>
+
+            <Button variant="danger" onClick={exportPDF}>
+              Export PDF
+            </Button>
+
+          </div>
+
+        )}
+
         <Row className="mb-4 g-2">
+
           <Col md={6}>
-            <Form.Control placeholder="Search..." value={search} onChange={e => setSearch(e.target.value)} />
+            <Form.Control
+              placeholder="Search..."
+              value={search}
+              onChange={e => setSearch(e.target.value)}
+            />
           </Col>
+
           <Col md={3}>
-            <Form.Select value={statusFilter} onChange={e => setStatusFilter(e.target.value)}>
+            <Form.Select
+              value={statusFilter}
+              onChange={e => setStatusFilter(e.target.value)}
+            >
               <option value="all">All Status</option>
               <option value="pending">Pending</option>
               <option value="in progress">In Progress</option>
               <option value="resolved">Resolved</option>
             </Form.Select>
           </Col>
-          {/* <Col md={3}>
-            <Form.Select value={selectedCategory} onChange={e => setSelectedCategory(e.target.value)}>
-            <option value="All">All Categories</option>
-            <option value="Deforestation">Deforestation</option>
-            <option value="Illegal Wood Smuggling">Illegal Wood Smuggling</option>
-            <option value="Drainage Issue">Drainage Issue</option>
-            <option value="Illegal Dumping">Illegal Dumping</option>
-            <option value="Environmental Damage">Environmental Damage</option>
-          </Form.Select>
 
-          </Col> */}
           <Col md={3}>
             <Form.Select
               value={departmentFilter}
@@ -234,156 +439,263 @@ const IncidentList = () => {
               <option value="Pollution">Pollution</option>
               <option value="Water Management">Water Management</option>
               <option value="Traffic / Roads">Traffic / Roads</option>
-              <option value="Waste Management">Waste Management</option>
-              <option value="Public Health">Public Health</option>
-              <option value="Wildlife / Animal Control">Wildlife / Animal Control</option>
-              <option value="Parks & Recreation">Parks & Recreation</option>
             </Form.Select>
           </Col>
 
         </Row>
 
         {error && <Alert variant="danger">{error}</Alert>}
-        {loading ? <Spinner animation="border" /> : filteredIncidents.length === 0 ? (
+
+        {loading ? (
+
+          <Spinner animation="border" />
+
+        ) : filteredIncidents.length === 0 ? (
+
           <Alert variant="info">No incidents found</Alert>
+
         ) : (
+
           <Row xs={1} md={2} className="g-4">
-            {filteredIncidents.map(incident => (
-              <Col key={incident.id}>
-                <Card className="shadow-sm h-100">
-                  <Card.Body>
-                    <Card.Title>{incident.title}</Card.Title>
-                    {incident.category && (
-                      <div className="mt-2 d-flex align-items-center justify-content-between">
-                        <strong>{getConfidenceEmoji(getConfidencePercent(incident.confidence))} {incident.category}</strong>
-                        <ProgressBar now={getConfidencePercent(incident.confidence)} variant={getConfidenceVariant(getConfidencePercent(incident.confidence))} style={{ width: "60%" }} label={`${getConfidencePercent(incident.confidence)}%`} />
+
+            {filteredIncidents.map(incident => {
+
+              const confidence = getConfidencePercent(incident.confidence);
+
+              const overdue = isOverdue(incident);
+
+              return (
+
+                <Col key={incident.id}>
+
+                  <Card
+                    className="shadow-sm h-100"
+                    style={{
+                      border: overdue ? "2px solid #dc3545" : ""
+                    }}
+                  >
+
+                    <Card.Body>
+
+                      <Card.Title>{incident.title}</Card.Title>
+
+                      {overdue && (
+                        <div className="mb-2">
+                          <span
+                            style={{
+                              background: "#dc3545",
+                              color: "white",
+                              padding: "4px 10px",
+                              borderRadius: "6px",
+                              fontSize: "12px",
+                              fontWeight: "bold"
+                            }}
+                          >
+                            ⚠ OVERDUE
+                          </span>
+                        </div>
+                      )}
+
+                      <div className="mt-2 d-flex justify-content-between align-items-center">
+
+                        <strong>
+                          {getConfidenceEmoji(confidence)} {incident.category}
+                        </strong>
+
+                        <ProgressBar
+                          now={confidence}
+                          variant={getConfidenceVariant(confidence)}
+                          label={`${confidence}%`}
+                          style={{ width: "60%" }}
+                        />
+
                       </div>
-                    )}
-                    {/* Department */}
-                    <div className="mt-1">
-                      <strong>🏛️ Department:</strong>{" "}
-                      {incident.department || "Municipality"}
-                    </div>
 
-
-                    <p className="text-muted mt-2">{incident.description}</p>
-
-                    {/* Reporter info */}
-                    <div className="text-muted small">
-                      Reported by <strong>{incident.user.username}</strong> •{" "}
-                      {dayjs.utc(incident.created_at).local().fromNow()}
-                    </div>
-
-                    {/* Activity Timeline */}
-                    {incident.logs.length > 0 && (
                       <div className="mt-2">
-                        <strong>🕒 Activity Timeline</strong>
+                        <strong>🏛️ Department:</strong> {incident.department}
+                      </div>
+                      <div className="mt-2">
+  <strong>📌 Status:</strong>{" "}
+  <span
+    style={{
+      padding: "4px 10px",
+      borderRadius: "6px",
+      color: "white",
+      fontSize: "12px",
+      fontWeight: "bold",
+      background:
+        incident.status === "pending"
+          ? "#ffc107"
+          : incident.status === "in progress"
+          ? "#0d6efd"
+          : "#198754"
+    }}
+  >
+    {incident.status?.toUpperCase()}
+  </span>
+</div>
 
-                        <ul className="mt-1 ps-3">
-                          {(expandedLogs[incident.id]
-                            ? incident.logs
-                            : incident.logs.slice(0, 1)
-                          ).map(log => {
-                            const actionLower = log.action.toLowerCase();
-                            let logClass = "small";
-                            if (actionLower.includes("status")) logClass += " text-primary";
-                            else if (actionLower.includes("category")) logClass += " text-success";
-                            else logClass += " text-muted";
+                      <p className="text-muted mt-2">
+                        {incident.description}
+                      </p>
 
-                            return (
-                              <li key={log.id} className={logClass}>
-                                {log.action} • {dayjs.utc(log.created_at).local().fromNow()}
-                              </li>
-                            );
-                          })}
-                        </ul>
+                      {currentUser.is_staff && (
 
-                        {incident.logs.length > 1 && (
-                          <Button
-                            variant="link"
-                            size="sm"
-                            className="p-0"
-                            onClick={() =>
-                              setExpandedLogs(prev => ({
-                                ...prev,
-                                [incident.id]: !prev[incident.id],
-                              }))
+                        <div className="mt-3">
+
+                          <strong>Admin Controls</strong>
+
+                          <Form.Select
+                            className="mt-2"
+                            value={incident.status}
+                            onChange={(e) =>
+                              handleStatusChange(incident.id, e.target.value)
                             }
                           >
-                            {expandedLogs[incident.id] ? "Show less" : "Show more"}
-                          </Button>
-                        )}
-                      </div>
-                    )}
-
-
-                    {/* Admin: Category & Status */}
-                    {currentUser.is_staff && (
-                        <div className="mt-3 d-flex flex-column gap-2">
-                          <Form.Select
-                            size="sm"
-                            value={incident.category || ""}
-                            onChange={e => updateCategory(incident.id, e.target.value)}
-                            style={{ maxWidth: "220px" }}
-                          >
-                            <option value="">Select Category</option>
-                            <option value="Deforestation">Deforestation</option>
-                            <option value="Illegal Wood Smuggling">Illegal Wood Smuggling</option>
-                            <option value="Drainage Issue">Drainage Issue</option>
-                            <option value="Illegal Dumping">Illegal Dumping</option>
-                            <option value="Environmental Damage">Environmental Damage</option>
-                          </Form.Select>
-
-
-                          <Form.Select size="sm" value={incident.status} onChange={e => handleStatusChange(incident.id, e.target.value)} style={{ maxWidth: "180px" }}>
                             <option value="pending">Pending</option>
                             <option value="in progress">In Progress</option>
                             <option value="resolved">Resolved</option>
                           </Form.Select>
+
+                          <Form.Select
+                            className="mt-2"
+                            value={incident.category}
+                            onChange={(e) =>
+                              updateCategory(incident.id, e.target.value)
+                            }
+                          >
+                            <option value="Infrastructure">Infrastructure</option>
+                            <option value="Pollution">Pollution</option>
+                            <option value="Deforestation">Deforestation</option>
+                            <option value="Water Issue">Water Issue</option>
+                            <option value="Illegal Dumping">Illegal Dumping</option>
+                            <option value="General Issue">General Issue</option>
+                          </Form.Select>
+
                         </div>
+
                       )}
 
+                      {incident.latitude && incident.longitude && (
 
-                    {/* Attachment */}
-                    {incident.attachment && (
-                      <img src={getImageUrl(incident.attachment)} alt="Incident" style={{ width: "100%", maxHeight: "220px", objectFit: "cover", borderRadius: "10px", marginTop: "10px", cursor: "pointer" }} onClick={() => { setActiveImage(getImageUrl(incident.attachment)); setShowImage(true); }} />
-                    )}
+                        <div className="mt-3">
 
-                    {/* Edit/Delete buttons */}
-                    {(incident.user?.username === currentUser.username || currentUser.is_staff) && (
+                          <strong>📍 Location</strong>
 
-                      <div className="d-flex justify-content-start gap-2 mt-3">
-                        <Button size="sm" variant="outline-primary" onClick={() => navigate(`/edit/${incident.id}`)}>Edit</Button>
-                        <Button size="sm" variant="outline-danger" onClick={() => handleDelete(incident.id)}>Delete</Button>
+                          <div className="small text-muted">
+                            Lat: {incident.latitude.toFixed(5)} <br/>
+                            Lng: {incident.longitude.toFixed(5)}
+                          </div>
+
+                          <Button
+                            size="sm"
+                            variant="outline-success"
+                            className="mt-2"
+                            onClick={() =>
+                              window.open(
+                                `https://www.google.com/maps?q=${incident.latitude},${incident.longitude}`,
+                                "_blank"
+                              )
+                            }
+                          >
+                            🗺️ View on Map
+                          </Button>
+
+                        </div>
+
+                      )}
+
+                      <div className="text-muted small mt-2">
+                        Reported by <strong>{incident.user.username}</strong> •{" "}
+                        {dayjs.utc(incident.created_at).local().fromNow()}
                       </div>
-                    )}
-                  </Card.Body>
-                </Card>
-              </Col>
-            ))}
+
+                      {incident.attachment && (
+
+                        <img
+                          src={getImageUrl(incident.attachment)}
+                          alt="incident"
+                          style={{
+                            width: "100%",
+                            maxHeight: "220px",
+                            objectFit: "cover",
+                            borderRadius: "10px",
+                            marginTop: "10px",
+                            cursor: "pointer"
+                          }}
+                          onClick={() => {
+                            setActiveImage(getImageUrl(incident.attachment));
+                            setShowImage(true);
+                          }}
+                        />
+
+                      )}
+
+                      {(incident.user?.username === currentUser.username ||
+                        currentUser.is_staff) && (
+
+                        <div className="mt-3 d-flex gap-2">
+
+                          <Button
+                            size="sm"
+                            variant="outline-primary"
+                            onClick={() => navigate(`/edit/${incident.id}`)}
+                          >
+                            Edit
+                          </Button>
+
+                          <Button
+                            size="sm"
+                            variant="outline-danger"
+                            onClick={() => handleDelete(incident.id)}
+                          >
+                            Delete
+                          </Button>
+
+                        </div>
+
+                      )}
+
+                    </Card.Body>
+
+                  </Card>
+
+                </Col>
+              );
+            })}
+
           </Row>
+
         )}
 
       </div>
 
-      {/* Image Modal */}
       <Modal show={showImage} onHide={() => setShowImage(false)} centered size="lg">
         <Modal.Body className="p-0">
           <img src={activeImage} alt="preview" style={{ width: "100%" }} />
         </Modal.Body>
       </Modal>
 
-      {/* Toast */}
       <div style={{ position: "fixed", top: 20, right: 20, zIndex: 9999 }}>
-        <Toast show={toast.show} bg={toast.variant} onClose={() => setToast({ ...toast, show: false })} delay={3000} autohide>
-          <Toast.Body className="text-white">{toast.message}</Toast.Body>
+
+        <Toast
+          show={toast.show}
+          bg={toast.variant}
+          delay={3000}
+          autohide
+          onClose={() => setToast({ ...toast, show: false })}
+        >
+
+          <Toast.Body className="text-white">
+            {toast.message}
+          </Toast.Body>
+
         </Toast>
+
       </div>
-      {/* Incident Charts */}
-      <div className="container mt-5">
-        <h3 className="fw-bold text-primary mb-4">Incident Statistics</h3>
-        <IncidentCharts />
-      </div>
+
+      
+      
 
     </div>
   );

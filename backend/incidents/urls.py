@@ -2,7 +2,10 @@ from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from django.conf import settings
 from django.conf.urls.static import static
-
+from .views import incident_timeline, update_incident_status_from_email
+from .views import risk_alerts
+from .views import location_risk_alerts
+from .views import incident_heatmap
 
 from .views import (
     IncidentViewSet,
@@ -51,13 +54,17 @@ urlpatterns = [
     # Contact
     path("contact/", contact_view),
     path("contact-list/", contact_list),
-    path("forgot-password/", forgot_password),
-    path("verify-otp/", verify_otp),
-    path("reset-password/", reset_password),
+   
     # Analytics
     path("analytics/departments/", department_analytics, name="department-analytics"),
     path("analytics/category/", incident_category_stats, name="category-analytics"),
     path("analytics/status/", incident_status_stats, name="status-analytics"),
+    path("analytics/timeline/", incident_timeline),
+    path("analytics/risk-alerts/", risk_alerts),
+    path("analytics/location-risk/", location_risk_alerts),
+    path("analytics/heatmap/", incident_heatmap),
+
+
 
     # Notifications
     path('notifications/', get_notifications, name='get-notifications'),
@@ -66,8 +73,14 @@ urlpatterns = [
     "incidents/<int:id>/report/",
     report_incident_to_department,
     name="report-incident-to-department",
+    ),
+    path(
+    "incidents/update-status/<int:incident_id>/<str:new_status>/",
+    update_incident_status_from_email,
+    ),
 
-),
+
+
     # Password Reset
     path("auth/forgot-password/", forgot_password),
     path("auth/verify-otp/", verify_otp),

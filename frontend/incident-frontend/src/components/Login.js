@@ -1,141 +1,199 @@
-// src/components/Login.js
 import React, { useState } from "react";
-import api from "../api/axios";
-import { useNavigate, Link } from "react-router-dom";
-import { Form, Button, Alert, Card } from "react-bootstrap";
 import axios from "axios";
+import {
+  Form,
+  Button,
+  Alert,
+  InputGroup
+} from "react-bootstrap";
+
+import { useNavigate, Link } from "react-router-dom";
 
 function Login() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+
+  const [form, setForm] = useState({
+    username: "",
+    password: ""
+  });
+
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  const handleChange = (e) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const handleLogin = async (e) => {
+
     e.preventDefault();
     setError("");
     setLoading(true);
 
     try {
-      const response = await api.post("http://127.0.0.1:8000/api/token/", {
-        username,
-        password,
-      });
 
-      localStorage.setItem("access", response.data.access);
-      localStorage.setItem("refresh", response.data.refresh);
+      const res = await axios.post(
+        "http://127.0.0.1:8000/api/login/",
+        form
+      );
 
-      const userResponse = await axios.get(
+      // Save tokens
+      localStorage.setItem("access", res.data.access);
+      localStorage.setItem("refresh", res.data.refresh);
+
+      // Get user info
+      const user = await axios.get(
         "http://127.0.0.1:8000/api/user/",
         {
-          headers: { Authorization: `Bearer ${response.data.access}` },
+          headers: {
+            Authorization: `Bearer ${res.data.access}`
+          }
         }
       );
 
-      localStorage.setItem("username", userResponse.data.username);
-      localStorage.setItem("user_id", userResponse.data.id);
+      // Save role + department
+      localStorage.setItem("role", user.data.role);
+      localStorage.setItem("department", user.data.department || "");
 
-      navigate("/dashboard");
+      // Redirect based on role
+      console.log("User Role:", user.data.role);
+      console.log("Department:", user.data.department);
+
+      const role = user.data.role?.toLowerCase();
+
+      if (role === "admin") {
+        navigate("/admin");
+      }
+      else if (role === "department") {
+        navigate("/department");
+      }
+      else {
+        navigate("/dashboard");
+      }
+
+
     } catch (err) {
-      setError(err?.response?.data?.detail || "Invalid username or password");
+
+      setError(
+        err.response?.data?.detail ||
+        "Invalid username or password"
+      );
+
     } finally {
       setLoading(false);
     }
+
   };
 
   return (
+
     <div
       style={{
         minHeight: "100vh",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        background: "rgba(96, 90, 90, 0.45)", // ✅ DARK OVERLAY
+        background: "rgba(116, 105, 105, 0.45)",
         padding: "20px",
-        borderRadius: "25px",
+        borderRadius: "25px"
       }}
     >
-      {/* ✅ SOLID CONTENT CONTAINER */}
+
       <div
         style={{
           width: "100%",
-          maxWidth: "420px",
+          maxWidth: "450px",
           background: "#ffffff",
           borderRadius: "14px",
           padding: "2.5rem",
-          boxShadow: "0 15px 40px rgba(0,0,0,0.25)",
+          boxShadow: "0 15px 40px rgba(0,0,0,0.25)"
         }}
       >
+
         <h2
-          className="text-center mb-4"
-          style={{
-            fontWeight: "600",
-            color: "#111827",
-          }}
+          className="text-center mb-1"
+          style={{ fontWeight: "600", color: "#111827" }}
         >
-          Login to Your Account
+          Login
         </h2>
+
+        <p className="text-center text-muted mb-4">
+          Incident Management Platform
+        </p>
 
         {error && <Alert variant="danger">{error}</Alert>}
 
-        <Form onSubmit={handleSubmit}>
+        <Form onSubmit={handleLogin}>
+
           <Form.Group className="mb-3">
-            <Form.Label style={{ fontWeight: "500" }}>
-              Username
-            </Form.Label>
+            <Form.Label>Username</Form.Label>
             <Form.Control
-              type="text"
-              placeholder="Enter username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              name="username"
               required
+              onChange={handleChange}
             />
           </Form.Group>
 
           <Form.Group className="mb-4">
-            <Form.Label style={{ fontWeight: "500" }}>
-              Password
-            </Form.Label>
-            <Form.Control
-              type="password"
-              placeholder="Enter password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </Form.Group>
-      
+            <Form.Label>Password</Form.Label>
 
+            <InputGroup>
+
+              <Form.Control
+                type={showPassword ? "text" : "password"}
+                name="password"
+                required
+                onChange={handleChange}
+              />
+
+              <Button
+                variant="outline-secondary"
+                type="button"
+                onClick={() =>
+                  setShowPassword(!showPassword)
+                }
+              >
+                {showPassword ? "Hide" : "Show"}
+              </Button>
+
+            </InputGroup>
+
+          </Form.Group>
 
           <Button
             type="submit"
             className="w-100"
             disabled={loading}
-            style={{
-              padding: "10px",
-              fontWeight: "600",
-            }}
           >
             {loading ? "Logging in..." : "Login"}
           </Button>
+
         </Form>
-            <div
-  className="text-center mt-3"
-  style={{ fontSize: "0.9rem" }}
->
-  <Link to="/forgot-password">Forgot password?</Link>
+              <div className="text-center mt-3">
+  <Link to="/forgot-password">
+    Forgot Password?
+  </Link>
 </div>
 
         <div
           className="text-center mt-4"
-          style={{ fontSize: "0.95rem", color: "#374151" }}
+          style={{ fontSize: "0.95rem" }}
         >
-          Don’t have an account?{" "}
-          <Link to="/signup">Sign up</Link>
+          Don't have an account?{" "}
+          <Link to="/signup">
+            Register
+          </Link>
         </div>
+
       </div>
+
     </div>
+
   );
 }
 

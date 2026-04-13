@@ -166,3 +166,5 @@ EMAIL_HOST_USER = 'pandeyji7112@gmail.com'        # 🔴 replace
 EMAIL_HOST_PASSWORD = 'bgmhuvunpbilfyos'      # 🔴 replace
 
 DEFAULT_FROM_EMAIL = 'Incident Platform <pandeyji7112@gmail.com>'
+
+BASE_URL = "http://127.0.0.1:8000"

@@ -16,13 +16,11 @@ const NavigationBar = () => {
   const [loadingNotifications, setLoadingNotifications] = useState(false);
   const [hoveredNotification, setHoveredNotification] = useState(null);
 
-  // Apply dark mode class
   useEffect(() => {
     document.body.classList.toggle("dark-mode", darkMode);
     localStorage.setItem("darkMode", darkMode);
   }, [darkMode]);
 
-  // Fetch notifications on mount and every 15s
   useEffect(() => {
     if (token) fetchNotifications();
     const interval = setInterval(() => {
@@ -52,8 +50,6 @@ const NavigationBar = () => {
         { notification_id: id },
         { headers: { Authorization: `Bearer ${token}` } }
       );
-
-      // Update state: mark as read and reduce count
       setNotifications((prev) =>
         prev.map((n) => (n.id === id ? { ...n, is_read: true } : n))
       );
@@ -91,12 +87,22 @@ const NavigationBar = () => {
                   Dashboard
                 </Nav.Link>
                 <Nav.Link
+                as={Link}
+                to="/incident-statistics"
+                className={isActive("/incident-statistics") ? "fw-semibold text-primary" : ""}
+              >
+                Incident Statistics
+              </Nav.Link>
+
+                <Nav.Link
                   as={Link}
                   to="/report"
                   className={isActive("/report") ? "fw-semibold text-primary" : ""}
                 >
                   Report Incident
                 </Nav.Link>
+
+                {/* Admin panel */}
                 {user?.role === "admin" && (
                   <Nav.Link
                     as={Link}
@@ -106,6 +112,15 @@ const NavigationBar = () => {
                     Admin Panel
                   </Nav.Link>
                 )}
+
+                {/* City Map */}
+                <Nav.Link
+                  as={Link}
+                  to="/map"
+                  className={isActive("/map") ? "fw-semibold text-primary" : ""}
+                >
+                  City Map
+                </Nav.Link>
               </>
             )}
           </Nav>
@@ -131,7 +146,7 @@ const NavigationBar = () => {
                       variant="light"
                       id="dropdown-notifications"
                       className="position-relative rounded-circle d-flex align-items-center justify-content-center"
-                      style={{ width: 40, height: 40, fontSize: 20,lineHeight: 1,paddingLeft:30 }}
+                      style={{ width: 40, height: 40, fontSize: 20, lineHeight: 1, paddingLeft: 30 }}
                     >
                       🔔
                       {unreadCount > 0 && (
@@ -180,9 +195,6 @@ const NavigationBar = () => {
                             }}
                           >
                             <span>{n.message}</span>
-                           
-
-                            {/* 👁️ Mark as Read */}
                             {!n.is_read && hoveredNotification === n.id && (
                               <span
                                 onClick={() => markAsRead(n.id)}

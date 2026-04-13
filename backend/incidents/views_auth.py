@@ -21,12 +21,12 @@ from django.template.loader import render_to_string
 from django.conf import settings
 import random
 from .models import PasswordResetOTP
+from rest_framework_simplejwt.tokens import RefreshToken
 
 # ================= CSRF (PURE DJANGO VIEW) =================
 @ensure_csrf_cookie
 def get_csrf(request):
     return JsonResponse({"message": "CSRF cookie set"})
-
 
 # ================= REGISTER =================
 @api_view(["POST"])
@@ -37,6 +37,8 @@ def register_user(request):
     email = request.data.get("email", "")
     first_name = request.data.get("first_name", "")
     last_name = request.data.get("last_name", "")
+    role = request.data.get("role", "user")
+    department_name = request.data.get("department")
 
     if not username or not password:
         return Response(
@@ -50,8 +52,8 @@ def register_user(request):
             status=status.HTTP_400_BAD_REQUEST
         )
 
-    # ✅ CREATE USER ONLY
-    User.objects.create_user(
+    # ✅ Create User
+    user = User.objects.create_user(
         username=username,
         password=password,
         email=email,
@@ -59,13 +61,27 @@ def register_user(request):
         last_name=last_name,
     )
 
-    # ✅ ALWAYS RETURN SUCCESS
+    # ✅ Find Department
+    department = None
+    if role == "department" and department_name:
+        from .models import Department
+        try:
+            department = Department.objects.get(name=department_name)
+        except Department.DoesNotExist:
+            department = None
+
+    # ✅ Create UserProfile
+    UserProfile.objects.create(
+        user=user,
+        role=role,
+        department=department
+    )
+
     return Response(
         {"message": "Registration successful ! Redirecting to login..."},
         status=status.HTTP_201_CREATED
     )
 
-# ================= LOGIN =================
 @api_view(["POST"])
 @permission_classes([AllowAny])
 def login_user(request):
@@ -77,9 +93,18 @@ def login_user(request):
     if not user:
         return Response({"error": "Invalid credentials"}, status=400)
 
-    login(request, user)
-    return Response({"message": "Login successful"})
+    refresh = RefreshToken.for_user(user)
 
+    return Response({
+        "refresh": str(refresh),
+        "access": str(refresh.access_token),
+        "user": {
+            "id": user.id,
+            "username": user.username,
+            "email": user.email,
+            "is_staff": user.is_staff,
+        }
+    })
 
 
 @api_view(["POST"])
@@ -230,7 +255,6 @@ def profile_view(request):
 
         return Response({"message": "Profile updated successfully"})
 
-
 # ================= CURRENT USER =================
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
@@ -238,10 +262,14 @@ def get_current_user(request):
     profile, _ = UserProfile.objects.get_or_create(user=request.user)
 
     return Response({
+        "id": request.user.id,
         "username": request.user.username,
         "email": request.user.email or "",
         "full_name": f"{request.user.first_name} {request.user.last_name}".strip(),
 
         "role": profile.role,
+        "department": profile.department.name if profile.department else None,
+
         "is_staff": request.user.is_staff,
+        "is_superuser": request.user.is_superuser,
     })

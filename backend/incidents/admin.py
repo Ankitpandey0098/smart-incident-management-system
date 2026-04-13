@@ -50,7 +50,8 @@ class UserProfileInline(admin.StackedInline):
     model = UserProfile
     can_delete = False
     extra = 0
-    fields = ("phone", "city", "role")
+    fields = ("phone", "city", "role", "department")
+
 
 
 # ================= Custom User Admin =================

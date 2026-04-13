@@ -7,7 +7,6 @@ from django.template.loader import render_to_string
 from django.core.mail import EmailMultiAlternatives
 
 
-
 # ---------------- CATEGORY → DEPARTMENT MAP ----------------
 CATEGORY_DEPARTMENT_MAP = {
     "Deforestation": "Forest",
@@ -24,9 +23,15 @@ CATEGORY_DEPARTMENT_MAP = {
 
 # ---------------- User Serializer ----------------
 class UserSerializer(serializers.ModelSerializer):
+    role = serializers.CharField(source="userprofile.role", read_only=True)
+    department = serializers.CharField(
+        source="userprofile.department.name",
+        read_only=True
+    )
+
     class Meta:
         model = User
-        fields = ["id", "username"]
+        fields = ["id", "username", "role", "department"]
 
 
 # ---------------- Incident Log Serializer ----------------
@@ -63,6 +68,34 @@ class IncidentSerializer(serializers.ModelSerializer):
     department = serializers.CharField(required=False, allow_null=True)
     logs = IncidentLogSerializer(many=True, read_only=True)
 
+    # -------- STATUS ORDER (Used Later for Sorting) --------
+    STATUS_ORDER = {
+        "pending": 0,
+        "in progress": 1,
+        "resolved": 2
+    }
+
+    # -------- STATUS VALIDATION --------
+    def validate_status(self, value):
+        if not value:
+            return "pending"
+
+        value = value.lower().strip()
+
+        mapping = {
+            "pending": "pending",
+            "in_progress": "in progress",
+            "in progress": "in progress",
+            "progress": "in progress",
+            "inprogress": "in progress",
+            "resolved": "resolved",
+            "done": "resolved",
+            "complete": "resolved",
+            "completed": "resolved",
+        }
+
+        return mapping.get(value, "pending")
+
     class Meta:
         model = Incident
         fields = [
@@ -76,28 +109,30 @@ class IncidentSerializer(serializers.ModelSerializer):
             "user",
             "attachment",
             "logs",
+            "latitude",
+            "longitude",
             "created_at",
+            "email_sent_count",
+            "last_email_sent_at",
         ]
+
         read_only_fields = [
             "user",
             "confidence",
-            "department",
             "logs",
             "created_at",
         ]
 
-    # -------- FIX 1: AUTO SET DEPARTMENT ON CREATE --------
+    # -------- CREATE INCIDENT --------
     def create(self, validated_data):
         request = self.context.get("request")
 
-        category = validated_data.get("category")
-
-        validated_data["department"] = CATEGORY_DEPARTMENT_MAP.get(
-            category, "Municipality"
-        )
-
         if request and request.user.is_authenticated:
             validated_data["user"] = request.user
+
+        # Default status
+        if not validated_data.get("status"):
+            validated_data["status"] = "pending"
 
         incident = super().create(validated_data)
 
@@ -107,8 +142,23 @@ class IncidentSerializer(serializers.ModelSerializer):
             performed_by=request.user if request else None,
         )
 
+        # Send Email to Department
+        if incident.department:
+            send_mail(
+                subject=f"New Incident Reported: {incident.title}",
+                message=f"A new incident has been reported in the {incident.department} department.\n\n"
+                        f"Title: {incident.title}\n"
+                        f"Category: {incident.category}\n"
+                        f"Description: {incident.description}\n"
+                        f"Status: {incident.status}",
+                from_email=settings.DEFAULT_FROM_EMAIL,
+                recipient_list=[settings.DEFAULT_FROM_EMAIL],
+                fail_silently=True,
+            )
+
         return incident
 
+    # -------- FIX ATTACHMENT URL --------
     def to_representation(self, instance):
         data = super().to_representation(instance)
         request = self.context.get("request")
@@ -120,39 +170,60 @@ class IncidentSerializer(serializers.ModelSerializer):
 
         return data
 
-    # -------- FIX 2: AUTO UPDATE DEPARTMENT ON CATEGORY CHANGE --------
+    # -------- UPDATE INCIDENT --------
     def update(self, instance, validated_data):
         request = self.context.get("request")
 
         old_status = instance.status
         old_category = instance.category
 
-        if not (request and request.user.is_staff):
+        profile = request.user.userprofile
+
+        # Block citizen users
+        if profile.role == "user":
             validated_data.pop("status", None)
             validated_data.pop("category", None)
 
+        # Normalize status
+        if "status" in validated_data:
+            validated_data["status"] = self.validate_status(
+                validated_data["status"]
+            )
+
         updated_instance = super().update(instance, validated_data)
 
+        # -------- CATEGORY CHANGE --------
         if old_category != updated_instance.category:
+
             updated_instance.department = CATEGORY_DEPARTMENT_MAP.get(
-                updated_instance.category, "Municipality"
+                updated_instance.category,
+                "Municipality"
             )
+
             updated_instance.save(update_fields=["department"])
 
             IncidentLog.objects.create(
                 incident=updated_instance,
-                action=f"Category changed to '{updated_instance.category}' (Department auto-updated)",
+                action=f"Category changed to '{updated_instance.category}'",
                 performed_by=request.user,
             )
-        
 
-
+        # -------- STATUS CHANGE --------
         if old_status != updated_instance.status:
+
             IncidentLog.objects.create(
                 incident=updated_instance,
                 action=f"Status changed from '{old_status}' to '{updated_instance.status}'",
                 performed_by=request.user,
             )
+
+            Notification.objects.create(
+                user=updated_instance.user,
+                incident=updated_instance,
+                message=f"Your incident '{updated_instance.title}' status changed to '{updated_instance.status}'."
+            )
+
+        # -------- SEND EMAIL UPDATE --------
         if (old_status != updated_instance.status or old_category != updated_instance.category) \
                 and updated_instance.user.email:
 
@@ -178,7 +249,6 @@ class IncidentSerializer(serializers.ModelSerializer):
             email.attach_alternative(html_content, "text/html")
             email.send(fail_silently=True)
 
-
         return updated_instance
 
 
@@ -189,8 +259,8 @@ class ContactMessageSerializer(serializers.ModelSerializer):
         fields = "__all__"
         read_only_fields = ["id", "created_at"]
 
-# ---------------- Signup Serializer ----------------
 
+# ---------------- Signup Serializer ----------------
 class SignupSerializer(serializers.ModelSerializer):
     phone = serializers.CharField(write_only=True, required=False)
 
@@ -204,6 +274,7 @@ class SignupSerializer(serializers.ModelSerializer):
             "last_name",
             "phone",
         ]
+
         extra_kwargs = {
             "password": {"write_only": True}
         }
@@ -213,13 +284,15 @@ class SignupSerializer(serializers.ModelSerializer):
 
         user = User.objects.create_user(**validated_data)
 
-        UserProfile.objects.get_or_create(
-            user=user,
-            defaults={"phone": phone},
-        )
+        if phone:
+            UserProfile.objects.create(
+                user=user,
+                phone=phone
+            )
 
-        # ---------------- SEND WELCOME EMAIL ----------------
+        # Send Welcome Email
         if user.email:
+
             html_content = render_to_string(
                 "emails/welcome_user.html",
                 {
@@ -235,7 +308,7 @@ class SignupSerializer(serializers.ModelSerializer):
             )
 
             email.attach_alternative(html_content, "text/html")
-            email.send(fail_silently=False)  # keep False for debugging
+            email.send(fail_silently=True)
 
         return user
 

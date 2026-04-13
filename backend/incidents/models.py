@@ -32,23 +32,32 @@ class Incident(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField()
 
+    # ✅ NEW LOCATION FIELDS
+    latitude = models.FloatField(null=True, blank=True)
+    longitude = models.FloatField(null=True, blank=True)
+
     # ML predicted fields
     category = models.CharField(max_length=50, null=True, blank=True)
     confidence = models.FloatField(null=True, blank=True)
 
     # AUTO-PREDICTED DEPARTMENT (stored as string)
     department = models.CharField(max_length=100, null=True, blank=True)
-    reported_to_department = models.BooleanField(default=False)
     status = models.CharField(
         max_length=20,
         choices=STATUS_CHOICES,
         default="pending"
     )
+    resolved_at = models.DateTimeField(null=True, blank=True)
 
     # ✅ NEW: Prevent duplicate department reporting
     reported_to_department = models.BooleanField(default=False)
     reported_at = models.DateTimeField(null=True, blank=True)
 
+    # ✅ NEW — Allow multiple email sending
+
+    email_sent_count = models.IntegerField(default=0)
+    last_email_sent_at = models.DateTimeField(null=True, blank=True)
+    
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
@@ -125,10 +134,29 @@ class ContactMessage(models.Model):
 # ================= User Profile Model =================
 class UserProfile(models.Model):
 
+    ROLE_CHOICES = [
+        ("admin", "Admin"),
+        ("department", "Department"),
+        ("user", "User"),
+    ]
+
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     phone = models.CharField(max_length=15, blank=True)
     city = models.CharField(max_length=100, blank=True)
-    role = models.CharField(max_length=50, default="User")
+
+    role = models.CharField(
+        max_length=20,
+        choices=ROLE_CHOICES,
+        default="user"
+    )
+
+    # 🔥 Link department user
+    department = models.ForeignKey(
+        Department,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True
+    )
 
     profile_image = models.ImageField(
         upload_to="profiles/",
@@ -136,10 +164,9 @@ class UserProfile(models.Model):
         blank=True
     )
 
-    
-
     def __str__(self):
-        return self.user.username
+        return f"{self.user.username} ({self.role})"
+
 
 
 # ================= Notification Model =================

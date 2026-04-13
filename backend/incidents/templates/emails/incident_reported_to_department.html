@@ -5,69 +5,128 @@
     <title>Incident Report</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f6f8;
-            padding: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #eef2f7, #e3e8f0);
+            padding: 30px;
         }
+
         .container {
+            max-width: 650px;
+            margin: auto;
             background: #ffffff;
-            padding: 20px;
-            border-radius: 6px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            overflow: hidden;
         }
+
         .header {
-            background: #0d6efd;
+            background: linear-gradient(135deg, #0d6efd, #3a8bfd);
             color: white;
+            padding: 18px;
+            text-align: center;
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .content {
+            padding: 20px;
+        }
+
+        .card {
+            background: #f8f9fb;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #e2e6ea;
+        }
+
+        .buttons {
+            margin-top: 20px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .btn {
+            text-decoration: none;
             padding: 12px;
             text-align: center;
-            font-size: 18px;
-            font-weight: bold;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            color: white;
         }
-        .section {
-            margin-top: 15px;
-        }
-        .label {
-            font-weight: bold;
-        }
+
+        .pending { background: #ffc107; color:black; }
+        .progress { background: #0d6efd; }
+        .resolved { background: #28a745; }
+
         .footer {
             margin-top: 20px;
             font-size: 12px;
-            color: #555;
+            color: #777;
         }
+
     </style>
 </head>
+
 <body>
-    <div class="container">
-        <div class="header">
-            New Incident Assigned to Your Department
-        </div>
 
-        <div class="section">
-            <p>Dear <strong>{{ department_name }} Department</strong>,</p>
-            <p>An incident has been reported and requires your attention.</p>
-        </div>
+<div class="container">
 
-        <div class="section">
-            <p><span class="label">Incident ID:</span> {{ incident_id }}</p>
-            <p><span class="label">Title:</span> {{ title }}</p>
-            <p><span class="label">Category:</span> {{ category }}</p>
-            <p><span class="label">Status:</span> {{ status }}</p>
-            <p><span class="label">Reported By:</span> {{ reported_by }}</p>
-            <p><span class="label">Date:</span> {{ created_at }}</p>
-        </div>
+<div class="header">
+Incident Assigned to Department
+</div>
 
-        <div class="section">
-            <p class="label">Description:</p>
-            <p>{{ description }}</p>
-        </div>
+<div class="content">
 
-        <div class="footer">
-            <p>Please take the necessary action at the earliest.</p>
-            <p>
-                Regards,<br>
-                <strong>Incident Management System</strong><br>
-                (Admin Notification)
-            </p>
-        </div>
-    </div>
+<p>Hello <strong>{{ department_name }}</strong> Department,</p>
+
+<div class="card">
+
+<p><b>Incident ID:</b> {{ incident_id }}</p>
+<p><b>Title:</b> {{ title }}</p>
+<p><b>Category:</b> {{ category }}</p>
+<p><b>Status:</b> {{ status }}</p>
+<p><b>Reported By:</b> {{ reported_by }}</p>
+<p><b>Date:</b> {{ created_at }}</p>
+
+</div>
+
+<h3>Update Status</h3>
+
+<div class="buttons">
+
+<a class="btn pending"
+href="http://127.0.0.1:8000/api/incidents/update-status/{{ incident_id }}/pending/">
+Pending
+</a>
+
+<a class="btn progress"
+href="http://127.0.0.1:8000/api/incidents/update-status/{{ incident_id }}/in progress/">
+In Progress
+</a>
+
+<a class="btn resolved"
+href="http://127.0.0.1:8000/api/incidents/update-status/{{ incident_id }}/resolved/">
+Resolved
+</a>
+
+</div>
+
+<div class="footer">
+
+Please update incident status by clicking above buttons.
+
+<br><br>
+
+Incident Management System
+
+</div>
+
+</div>
+
+</div>
+
 </body>
+
 </html>

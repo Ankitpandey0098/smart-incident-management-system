@@ -1,6 +1,7 @@
 import pandas as pd
 import pickle
 import re
+
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.model_selection import train_test_split
@@ -11,44 +12,58 @@ from sklearn.metrics import classification_report, accuracy_score
 # ===============================
 df = pd.read_csv("dataset/incidents.csv")
 
-# Remove accidental header rows if present
+# Remove header duplicates
 df = df[df["category"] != "category"]
 
-# Drop empty rows just in case
-df = df.dropna(subset=["incident", "category"])
+# Drop empty rows
+df = df.dropna(subset=["incident", "category", "emergency"])
 
 # ===============================
-# Text cleaning (improved)
+# Text cleaning
 # ===============================
 def clean_text(text):
     text = str(text).lower()
-    text = re.sub(r"http\S+|www\S+", " ", text)   # remove URLs
-    text = re.sub(r"[^a-z\s]", " ", text)         # keep only letters
-    text = re.sub(r"\s+", " ", text).strip()      # remove extra spaces
+    text = re.sub(r"http\S+|www\S+", " ", text)
+    text = re.sub(r"[^a-z\s]", " ", text)
+    text = re.sub(r"\s+", " ", text).strip()
     return text
+
 
 df["clean_incident"] = df["incident"].apply(clean_text)
 
 X = df["clean_incident"]
-y = df["category"]
+y_category = df["category"]
+y_emergency = df["emergency"]
 
 
 print("\nCategory distribution:")
-print(y.value_counts())
+print(y_category.value_counts())
+
+print("\nEmergency distribution:")
+print(y_emergency.value_counts())
 
 # ===============================
-# Train–test split (VERY IMPORTANT)
+# Train test split
 # ===============================
-X_train, X_test, y_train, y_test = train_test_split(
+X_train, X_test, y_train_cat, y_test_cat = train_test_split(
     X,
-    y,
+    y_category,
     test_size=0.2,
     random_state=42,
-    stratify=y
+    stratify=y_category
+)
+
+# Emergency split
+X_train_e, X_test_e, y_train_em, y_test_em = train_test_split(
+    X,
+    y_emergency,
+    test_size=0.2,
+    random_state=42,
+    stratify=y_emergency
 )
 
 # ===============================
-# TF-IDF Vectorizer (optimized)
+# Vectorizer
 # ===============================
 vectorizer = TfidfVectorizer(
     stop_words="english",
@@ -61,27 +76,43 @@ vectorizer = TfidfVectorizer(
 X_train_vec = vectorizer.fit_transform(X_train)
 X_test_vec = vectorizer.transform(X_test)
 
-# ===============================
-# Naive Bayes model
-# ===============================
-model = MultinomialNB(alpha=0.2)
-
-model.fit(X_train_vec, y_train)
+X_train_vec_e = vectorizer.transform(X_train_e)
+X_test_vec_e = vectorizer.transform(X_test_e)
 
 # ===============================
-# Evaluation (for YOU, not frontend)
+# CATEGORY MODEL
 # ===============================
-y_pred = model.predict(X_test_vec)
+category_model = MultinomialNB(alpha=0.2)
 
-print("\n📊 Model Evaluation")
-print("Accuracy:", accuracy_score(y_test, y_pred))
-print("\nClassification Report:\n")
-print(classification_report(y_test, y_pred))
+category_model.fit(X_train_vec, y_train_cat)
+
+y_pred = category_model.predict(X_test_vec)
+
+print("\n📊 Category Model Evaluation")
+print("Accuracy:", accuracy_score(y_test_cat, y_pred))
+print(classification_report(y_test_cat, y_pred))
+
 
 # ===============================
-# Save model & vectorizer
+# EMERGENCY MODEL
 # ===============================
-pickle.dump(model, open("model.pkl", "wb"))
+emergency_model = MultinomialNB()
+
+emergency_model.fit(X_train_vec_e, y_train_em)
+
+y_pred_em = emergency_model.predict(X_test_vec_e)
+
+print("\n🚨 Emergency Model Evaluation")
+print("Accuracy:", accuracy_score(y_test_em, y_pred_em))
+print(classification_report(y_test_em, y_pred_em))
+
+
+# ===============================
+# Save models
+# ===============================
+pickle.dump(category_model, open("model.pkl", "wb"))
 pickle.dump(vectorizer, open("vectorizer.pkl", "wb"))
+pickle.dump(emergency_model, open("emergency_model.pkl", "wb"))
 
-print("\n✅ ML model trained and saved successfully")
+print("\n✅ Models trained and saved successfully")
+

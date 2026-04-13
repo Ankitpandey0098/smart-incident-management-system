@@ -10,6 +10,8 @@ const EditIncident = () => {
   // 🔹 Form states
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [latitude, setLatitude] = useState("");
+  const [longitude, setLongitude] = useState("");
   const [attachment, setAttachment] = useState(null);
   const [existingImage, setExistingImage] = useState(null);
 
@@ -18,7 +20,7 @@ const EditIncident = () => {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
 
-  // 📥 Fetch incident details
+  // 📥 Fetch incident
   useEffect(() => {
     const fetchIncident = async () => {
       try {
@@ -35,7 +37,10 @@ const EditIncident = () => {
 
         setTitle(res.data.title);
         setDescription(res.data.description);
+        setLatitude(res.data.latitude || "");
+        setLongitude(res.data.longitude || "");
         setExistingImage(res.data.attachment);
+
       } catch (err) {
         console.error(err);
         setError("❌ Failed to load incident.");
@@ -46,6 +51,22 @@ const EditIncident = () => {
 
     fetchIncident();
   }, [id]);
+
+  // 📍 Get current GPS location
+  const getCurrentLocation = () => {
+
+    if (!navigator.geolocation) {
+      alert("Geolocation not supported");
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition((position) => {
+
+      setLatitude(position.coords.latitude);
+      setLongitude(position.coords.longitude);
+
+    });
+  };
 
   // 💾 Update incident
   const handleUpdate = async (e) => {
@@ -63,8 +84,11 @@ const EditIncident = () => {
       const token = localStorage.getItem("access");
 
       const formData = new FormData();
+
       formData.append("title", title);
       formData.append("description", description);
+      formData.append("latitude", latitude);
+      formData.append("longitude", longitude);
 
       if (attachment) {
         formData.append("attachment", attachment);
@@ -76,14 +100,13 @@ const EditIncident = () => {
         {
           headers: {
             Authorization: `Bearer ${token}`,
-            // ❌ DO NOT set Content-Type for FormData
           },
         }
       );
 
       alert("✅ Incident updated successfully!");
       navigate("/", { replace: true });
-      
+
     } catch (err) {
       console.error(err.response?.data || err.message);
       setError("❌ Failed to update incident.");
@@ -92,7 +115,7 @@ const EditIncident = () => {
     }
   };
 
-  // ⏳ Loading UI
+  // ⏳ Loading
   if (loading) {
     return (
       <div className="text-center mt-5">
@@ -103,13 +126,16 @@ const EditIncident = () => {
 
   return (
     <div className="container mt-4">
+
       <Card className="p-4 shadow-sm">
+
         <h3 className="mb-3">✏️ Edit Incident</h3>
 
         {error && <Alert variant="danger">{error}</Alert>}
 
         <Form onSubmit={handleUpdate}>
-          {/* 🔹 Title */}
+
+          {/* Title */}
           <Form.Group className="mb-3">
             <Form.Label>Title</Form.Label>
             <Form.Control
@@ -119,7 +145,7 @@ const EditIncident = () => {
             />
           </Form.Group>
 
-          {/* 🔹 Description */}
+          {/* Description */}
           <Form.Group className="mb-3">
             <Form.Label>Description</Form.Label>
             <Form.Control
@@ -131,7 +157,58 @@ const EditIncident = () => {
             />
           </Form.Group>
 
-          {/* 🖼 Existing Image Preview */}
+          {/* 📍 Location Section */}
+
+          <h5 className="mt-3">📍 Location</h5>
+
+          <Form.Group className="mb-3">
+            <Form.Label>Latitude</Form.Label>
+            <Form.Control
+              type="number"
+              step="any"
+              value={latitude}
+              onChange={(e) => setLatitude(e.target.value)}
+            />
+          </Form.Group>
+
+          <Form.Group className="mb-3">
+            <Form.Label>Longitude</Form.Label>
+            <Form.Control
+              type="number"
+              step="any"
+              value={longitude}
+              onChange={(e) => setLongitude(e.target.value)}
+            />
+          </Form.Group>
+
+          <Button
+            variant="outline-primary"
+            size="sm"
+            className="mb-3"
+            onClick={getCurrentLocation}
+          >
+            📡 Use My Current Location
+          </Button>
+
+          {latitude && longitude && (
+            <div className="mb-3">
+              <Button
+                variant="outline-success"
+                size="sm"
+                onClick={() =>
+                  window.open(
+                    `https://www.google.com/maps?q=${latitude},${longitude}`,
+                    "_blank"
+                  )
+                }
+              >
+                🗺️ View on Map
+              </Button>
+            </div>
+          )}
+
+          {/* Existing Image */}
+
           {existingImage && (
             <div className="mb-3">
               <Form.Label>Current Attachment</Form.Label>
@@ -152,7 +229,8 @@ const EditIncident = () => {
             </div>
           )}
 
-          {/* 📎 Upload New Image */}
+          {/* Upload new image */}
+
           <Form.Group className="mb-3">
             <Form.Label>Replace Attachment (optional)</Form.Label>
             <Form.Control
@@ -161,20 +239,27 @@ const EditIncident = () => {
             />
           </Form.Group>
 
-          {/* 🔘 Actions */}
+          {/* Buttons */}
+
           <div className="d-flex gap-2">
+
             <Button type="submit" disabled={saving}>
               {saving ? "Updating..." : "Save Changes"}
             </Button>
+
             <Button
               variant="secondary"
-              onClick={() => navigate("/incidents")}
+              onClick={() => navigate("/")}
             >
               Cancel
             </Button>
+
           </div>
+
         </Form>
+
       </Card>
+
     </div>
   );
 };
