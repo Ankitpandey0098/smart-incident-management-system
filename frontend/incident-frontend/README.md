@@ -8,8 +8,13 @@ In the project directory, you can run:
 
 ### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Runs the app in production mode.
+
+Live Application:
+https://smart-incident-management.vercel.app
+
+You can access the Smart Incident Management System using the above URL.
+The application connects to the deployed Django backend and supports full incident reporting, tracking, and analytics features.
 
 The page will reload when you make changes.\
 You may also see any lint errors in the console.

@@ -142,11 +142,15 @@ CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
+    "https://smart-incident-management.vercel.app"
 ]
+
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
+    "https://smart-incident-management.vercel.app"
 ]
+
 
 USE_TZ = True
 TIME_ZONE = "Asia/Kolkata"  # or your server timezone

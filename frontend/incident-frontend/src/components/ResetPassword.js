@@ -34,14 +34,15 @@ const ResetPassword = () => {
     setLoading(true);
 
     try {
-      const res = await axios.post(
-        "http://localhost:8000/api/auth/reset-password/",
-        {
-          email,
-          otp,
-          password,
-        }
-      );
+  const res = await axios.post(
+    "https://smart-incident-management-system-chno.onrender.com/api/auth/reset-password/",
+    {
+      email,
+      otp,
+      password,
+    }
+  );
+
 
       setMessage(res.data.message || "Password reset successful");
 

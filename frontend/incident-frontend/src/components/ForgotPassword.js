@@ -43,11 +43,11 @@ const ForgotPassword = () => {
     setError("");
     setMessage("");
 
-    try {
-      const res = await axios.post(
-        "http://localhost:8000/api/auth/forgot-password/",
-        { email }
-      );
+   try {
+  const res = await axios.post(
+    "https://smart-incident-management-system-chno.onrender.com/api/auth/forgot-password/",
+    { email }
+  );
 
       setMessage(res.data.message);
       setStep(2);
@@ -65,11 +65,12 @@ const ForgotPassword = () => {
     setError("");
     setMessage("");
 
-    try {
-      const res = await axios.post(
-        "http://localhost:8000/api/auth/forgot-password/",
-        { email }
-      );
+   try {
+  const res = await axios.post(
+    "https://smart-incident-management-system-chno.onrender.com/api/auth/forgot-password/",
+    { email }
+  );
+
       setMessage("OTP resent successfully");
       setTimer(OTP_EXPIRY_SECONDS);
     } catch (err) {
@@ -86,11 +87,11 @@ const ForgotPassword = () => {
     setError("");
     setMessage("");
 
-    try {
-      const res = await axios.post(
-        "http://localhost:8000/api/auth/verify-otp/",
-        { email, otp }
-      );
+   try {
+  const res = await axios.post(
+    "https://smart-incident-management-system-chno.onrender.com/api/auth/verify-otp/",
+    { email, otp }
+  );
       setMessage(res.data.message);
       setStep(3);
     } catch (err) {
@@ -108,10 +109,11 @@ const ForgotPassword = () => {
     setMessage("");
 
     try {
-      const res = await axios.post(
-        "http://localhost:8000/api/auth/reset-password/",
-        { email, otp, password }
-      );
+  const res = await axios.post(
+    "https://smart-incident-management-system-chno.onrender.com/api/auth/reset-password/",
+    { email, otp, password }
+  );
+
 
       setMessage(res.data.message);
 

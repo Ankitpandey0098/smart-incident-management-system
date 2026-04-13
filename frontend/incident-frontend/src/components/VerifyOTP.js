@@ -19,10 +19,11 @@ const VerifyOTP = () => {
     setLoading(true);
 
     try {
-      const res = await axios.post(
-        "http://localhost:8000/api/auth/verify-otp/",
-        { email, otp }
-      );
+  const res = await axios.post(
+    "https://smart-incident-management-system-chno.onrender.com/api/auth/verify-otp/",
+    { email, otp }
+  );
+
 
       setMessage(res.data.message || "OTP verified successfully");
 
