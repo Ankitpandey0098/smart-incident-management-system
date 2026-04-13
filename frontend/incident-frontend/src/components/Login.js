@@ -6,6 +6,7 @@ import {
   Alert,
   InputGroup
 } from "react-bootstrap";
+import api from "../api/axios";
 
 import { useNavigate, Link } from "react-router-dom";
 
@@ -37,24 +38,20 @@ function Login() {
 
     try {
 
-      const res = await axios.post(
-        "http://127.0.0.1:8000/api/login/",
-        form
-      );
+      const res = await api.post("/login/", form);
+
 
       // Save tokens
       localStorage.setItem("access", res.data.access);
       localStorage.setItem("refresh", res.data.refresh);
 
       // Get user info
-      const user = await axios.get(
-        "http://127.0.0.1:8000/api/user/",
-        {
-          headers: {
-            Authorization: `Bearer ${res.data.access}`
-          }
-        }
-      );
+      const user = await api.get("/user/", {
+  headers: {
+    Authorization: `Bearer ${res.data.access}`
+  }
+});
+
 
       // Save role + department
       localStorage.setItem("role", user.data.role);

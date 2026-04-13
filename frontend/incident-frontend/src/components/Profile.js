@@ -12,7 +12,7 @@ import {
 } from "react-bootstrap";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
+import api from "../api/axios";
 const Profile = () => {
   const [profile, setProfile] = useState(null);
   const [formData, setFormData] = useState({
@@ -38,10 +38,9 @@ const Profile = () => {
       return;
     }
 
-    axios
-      .get("http://127.0.0.1:8000/api/profile/", {
-        headers: { Authorization: `Bearer ${token}` },
-      })
+    api.get("profile/", {
+  headers: { Authorization: `Bearer ${token}` },
+});
       .then((res) => {
         setProfile(res.data);
         setFormData({
@@ -81,13 +80,12 @@ const Profile = () => {
       if (formData[key]) data.append(key, formData[key]);
     });
 
-    axios
-      .patch("http://127.0.0.1:8000/api/profile/", data, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "multipart/form-data",
-        },
-      })
+    api.patch("profile/", data, {
+  headers: {
+    Authorization: `Bearer ${token}`,
+    "Content-Type": "multipart/form-data",
+  },
+});
       .then((res) => {
         setProfile({ ...profile, ...res.data });
         setEditMode(false);

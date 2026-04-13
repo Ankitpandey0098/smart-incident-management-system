@@ -4,7 +4,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import ProfileBar from "./ProfileBar";
 import { UserContext } from "../UserContext";
 import axios from "axios";
-
+import api from "../api/axios";
 const NavigationBar = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -32,9 +32,9 @@ const NavigationBar = () => {
   const fetchNotifications = async () => {
     setLoadingNotifications(true);
     try {
-      const res = await axios.get("http://127.0.0.1:8000/api/notifications/", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const res = await api.get("notifications/", {
+  headers: { Authorization: `Bearer ${token}` },
+});
       setNotifications(res.data);
     } catch (err) {
       console.error("Failed to fetch notifications", err);
@@ -45,11 +45,13 @@ const NavigationBar = () => {
 
   const markAsRead = async (id) => {
     try {
-      await axios.post(
-        "http://127.0.0.1:8000/api/notifications/mark_read/",
-        { notification_id: id },
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
+   await api.post(
+  "notifications/mark_read/",
+  { notification_id: id },
+  {
+    headers: { Authorization: `Bearer ${token}` },
+  }
+);
       setNotifications((prev) =>
         prev.map((n) => (n.id === id ? { ...n, is_read: true } : n))
       );

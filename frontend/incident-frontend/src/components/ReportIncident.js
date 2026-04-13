@@ -4,7 +4,7 @@ import { Form, Button, Container, Alert, Card } from "react-bootstrap";
 import { MapContainer, TileLayer, Marker, useMapEvents } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
-
+import api from "../api/axios";
 // Fix marker icon issue
 delete L.Icon.Default.prototype._getIconUrl;
 
@@ -101,15 +101,11 @@ function ReportIncident() {
         formData.append("attachment", attachment);
       }
 
-      await axios.post(
-        "http://127.0.0.1:8000/api/incidents/",
-        formData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      await api.post("incidents/", formData, {
+  headers: {
+    Authorization: `Bearer ${token}`,
+  },
+});
 
       setMessage("✅ Report submitted successfully.");
 

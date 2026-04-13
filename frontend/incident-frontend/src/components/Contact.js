@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Form, Button, Alert, Spinner } from "react-bootstrap";
 import axios from "axios";
+import api from "../api/axios";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -25,14 +26,16 @@ const Contact = () => {
     setSuccessMsg("");
 
     try {
-      const token = localStorage.getItem("access"); // if protected
-      const response = await axios.post(
-        "http://127.0.0.1:8000/api/contact/",
-        formData,
-        {
-          headers: token ? { Authorization: `Bearer ${token}` } : {},
-        }
-      );
+      const token = localStorage.getItem("access");
+
+const response = await api.post(
+  "/contact/",
+  formData,
+  {
+    headers: token ? { Authorization: `Bearer ${token}` } : {},
+  }
+);
+
 
       setSuccessMsg(response.data.message || "Message sent successfully!");
       setFormData({ name: "", email: "", subject: "", message: "" });

@@ -4,7 +4,7 @@ import { MapContainer, TileLayer, useMap } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet.heat";
-
+import api from "../api/axios";
 const HeatmapLayer = ({ points }) => {
   const map = useMap();
 
@@ -48,12 +48,10 @@ const IncidentHeatmap = () => {
       try {
         const token = localStorage.getItem("access");
 
-        const res = await axios.get(
-          "http://127.0.0.1:8000/api/analytics/heatmap/",
-          {
-            headers: { Authorization: `Bearer ${token}` }
-          }
-        );
+        const res = await api.get("/analytics/heatmap/", {
+  headers: { Authorization: `Bearer ${token}` }
+});
+
 
         console.log("Heatmap Data:", res.data);
         setPoints(res.data);

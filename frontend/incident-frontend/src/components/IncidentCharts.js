@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Card, Row, Col, Spinner, Alert, Badge } from "react-bootstrap";
 import axios from "axios";
 import IncidentHeatmap from "../components/IncidentHeatmap";
-
+import api from "../api/axios";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -50,34 +50,34 @@ const IncidentCharts = () => {
   /* ================= TOKEN HELPER ================= */
 
   const requestWithToken = async (url) => {
-    let access = localStorage.getItem("access");
-    const refresh = localStorage.getItem("refresh");
+  let access = localStorage.getItem("access");
+  const refresh = localStorage.getItem("refresh");
 
-    try {
-      const res = await axios.get(url, {
+  try {
+    const res = await api.get(url, {
+      headers: { Authorization: `Bearer ${access}` },
+    });
+    return res.data;
+
+  } catch (err) {
+    if (err.response?.status === 401 && refresh) {
+      const tokenRes = await api.post("/token/refresh/", {
+        refresh,
+      });
+
+      access = tokenRes.data.access;
+      localStorage.setItem("access", access);
+
+      const retryRes = await api.get(url, {
         headers: { Authorization: `Bearer ${access}` },
       });
-      return res.data;
-    } catch (err) {
-      if (err.response?.status === 401 && refresh) {
-        const tokenRes = await axios.post(
-          "http://127.0.0.1:8000/api/token/refresh/",
-          { refresh }
-        );
 
-        access = tokenRes.data.access;
-        localStorage.setItem("access", access);
-
-        const retry = await axios.get(url, {
-          headers: { Authorization: `Bearer ${access}` },
-        });
-
-        return retry.data;
-      }
-
-      throw err;
+      return retryRes.data;
     }
-  };
+
+    throw err;
+  }
+};
 
   /* ================= FETCH DATA ================= */
 
@@ -93,12 +93,13 @@ const IncidentCharts = () => {
           timeRes,
           riskRes
         ] = await Promise.all([
-          requestWithToken("http://127.0.0.1:8000/api/analytics/category/"),
-          requestWithToken("http://127.0.0.1:8000/api/analytics/status/"),
-          requestWithToken("http://127.0.0.1:8000/api/analytics/departments/"),
-          requestWithToken("http://127.0.0.1:8000/api/analytics/timeline/"),
-          requestWithToken("http://127.0.0.1:8000/api/analytics/risk-alerts/")
-        ]);
+                requestWithToken("/analytics/category/"),
+                requestWithToken("/analytics/status/"),
+                requestWithToken("/analytics/departments/"),
+                requestWithToken("/analytics/timeline/"),
+                requestWithToken("/analytics/risk-alerts/")
+              ]);
+
 
         setRiskAlerts(riskRes || []);
 

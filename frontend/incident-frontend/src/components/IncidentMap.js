@@ -9,7 +9,7 @@ import "leaflet.markercluster/dist/MarkerCluster.Default.css";
 
 import L from "leaflet";
 import "leaflet.heat";
-
+import api from "../api/axios";
 /* ================= FIX MARKER ICONS ================= */
 
 delete L.Icon.Default.prototype._getIconUrl;
@@ -145,10 +145,10 @@ const IncidentMap = () => {
   useEffect(() => {
     const fetchIncidents = async () => {
       try {
-        const res = await axios.get(
-          "http://127.0.0.1:8000/api/incidents/",
-          axiosConfig
-        );
+        import api from "../api/axios";
+
+        const res = await api.get("incidents/", axiosConfig);
+
 
         const data = Array.isArray(res.data) ? res.data : [];
 

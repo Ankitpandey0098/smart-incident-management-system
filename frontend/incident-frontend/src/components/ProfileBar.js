@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import { Dropdown, Image, Spinner } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../UserContext";
-
+import api from "../api/axios";
 const ProfileBar = () => {
   const { user, setUser } = useContext(UserContext);
   const [loading, setLoading] = useState(true);
@@ -20,11 +20,11 @@ const ProfileBar = () => {
 
   const fetchUser = async () => {
     try {
-      const res = await fetch("http://127.0.0.1:8000/api/profile/", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+   const res = await api.get("profile/", {
+  headers: {
+    Authorization: `Bearer ${token}`,
+  },
+});
       if (!res.ok) throw new Error("Failed");
       const data = await res.json();
       setUser(data);

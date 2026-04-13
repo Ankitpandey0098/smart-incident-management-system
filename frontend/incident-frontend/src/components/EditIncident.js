@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import { Form, Button, Alert, Card, Spinner } from "react-bootstrap";
-
+import api from "../api/axios";
 const EditIncident = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -26,14 +26,12 @@ const EditIncident = () => {
       try {
         const token = localStorage.getItem("access");
 
-        const res = await axios.get(
-          `http://127.0.0.1:8000/api/incidents/${id}/`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        const res = await api.get(`/incidents/${id}/`, {
+  headers: {
+    Authorization: `Bearer ${token}`,
+  },
+});
+
 
         setTitle(res.data.title);
         setDescription(res.data.description);
@@ -94,15 +92,12 @@ const EditIncident = () => {
         formData.append("attachment", attachment);
       }
 
-      await axios.patch(
-        `http://127.0.0.1:8000/api/incidents/${id}/`,
-        formData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      await api.patch(`/incidents/${id}/`, formData, {
+  headers: {
+    Authorization: `Bearer ${token}`,
+  },
+});
+
 
       alert("✅ Incident updated successfully!");
       navigate("/", { replace: true });
@@ -215,10 +210,11 @@ const EditIncident = () => {
               <br />
               <img
                 src={
-                  existingImage.startsWith("http")
-                    ? existingImage
-                    : `http://127.0.0.1:8000${existingImage}`
-                }
+                    existingImage.startsWith("http")
+                      ? existingImage
+                      : `https://smart-incident-management-system-chno.onrender.com${existingImage}`
+                  }
+
                 alt="Current"
                 style={{
                   maxWidth: "100%",

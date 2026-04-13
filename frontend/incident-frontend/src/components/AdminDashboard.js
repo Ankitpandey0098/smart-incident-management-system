@@ -13,6 +13,7 @@ import {
   Alert
 } from "react-bootstrap";
 import { EnvelopeFill, GeoAltFill } from "react-bootstrap-icons";
+import api from "../api/axios";
 
 const AdminDashboard = () => {
 
@@ -60,10 +61,12 @@ const AdminDashboard = () => {
 
     try {
 
-      const res = await axios.get(
-        "http://127.0.0.1:8000/api/incidents/",
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
+      const res = await api.get("/incidents/", {
+  headers: {
+    Authorization: `Bearer ${token}`
+  }
+});
+
 
       const sorted = sortIncidents(res.data);
 
@@ -144,11 +147,12 @@ const AdminDashboard = () => {
 
     try {
 
-      await axios.post(
-        `http://127.0.0.1:8000/api/incidents/${incident.id}/report/`,
-        {},
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
+     await api.post(`/incidents/${incident.id}/report/`, {}, {
+  headers: {
+    Authorization: `Bearer ${token}`
+  }
+});
+
 
       setMessage(
         `Incident "${incident.title}" sent to ${incident.department}`
@@ -168,11 +172,16 @@ const AdminDashboard = () => {
 
     try {
 
-      await axios.patch(
-        `http://127.0.0.1:8000/api/incidents/${incident.id}/`,
-        { status: newStatus },
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
+      await api.patch(
+  `/incidents/${incident.id}/`,
+  { status: newStatus },
+  {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  }
+);
+
 
       setMessage(`Status updated to ${newStatus}`);
 

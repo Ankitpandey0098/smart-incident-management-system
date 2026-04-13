@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-
+import api from "../api/axios";
 import {
   Card,
   Button,
@@ -28,7 +28,8 @@ import LiveIncidentFeed from "../components/LiveIncidentFeed";
 dayjs.extend(relativeTime);
 dayjs.extend(utc);
 
-const API = "http://127.0.0.1:8000/api";
+const API = "https://smart-incident-management-system-chno.onrender.com/api";
+
 
 const IncidentList = () => {
 
@@ -204,9 +205,12 @@ const sortByStatusPriority = (data) => {
 }, [search, statusFilter, departmentFilter, incidents]);
 
   const getImageUrl = (url) => {
-    if (!url) return null;
-    return url.startsWith("http") ? url : `http://127.0.0.1:8000${url}`;
-  };
+  if (!url) return null;
+  return url.startsWith("http")
+    ? url
+    : `https://smart-incident-management-system-chno.onrender.com${url}`;
+};
+
 
   const getConfidencePercent = (c) => c ? Math.round(c * 100) : 0;
 

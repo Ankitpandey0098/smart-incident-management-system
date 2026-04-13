@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-
+import api from "../api/axios";
 const LiveIncidentFeed = () => {
   const [incidents, setIncidents] = useState([]);
 
@@ -12,10 +12,8 @@ const LiveIncidentFeed = () => {
 
   const fetchIncidents = async () => {
     try {
-      const res = await axios.get(
-        "http://127.0.0.1:8000/api/incidents/",
-        axiosConfig
-      );
+      const res = await api.get("incidents/", axiosConfig);
+      
 
       const data = Array.isArray(res.data) ? res.data : [];
 

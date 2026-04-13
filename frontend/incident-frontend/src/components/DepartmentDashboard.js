@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import api form "../api/axios";
 import {
   Table,
   Card,
@@ -39,10 +40,11 @@ const DepartmentDashboard = () => {
 
     try {
 
-      const res = await axios.get(
-        "http://127.0.0.1:8000/api/incidents/",
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
+      const res = await api.get("/incidents/", {
+  headers: {
+    Authorization: `Bearer ${token}`
+  }
+});
 
       console.log("Logged Department:", department);
       console.log("All Incidents:", res.data);
@@ -80,11 +82,16 @@ const DepartmentDashboard = () => {
 
     try {
 
-      await axios.patch(
-        `http://127.0.0.1:8000/api/incidents/${incident.id}/`,
-        { status },
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
+      await api.patch(
+  `/incidents/${incident.id}/`,
+  { status },
+  {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  }
+);
+
 
       setMessage(`Status updated to ${status}`);
 

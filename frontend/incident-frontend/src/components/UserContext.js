@@ -2,7 +2,7 @@
 
 import React, { createContext, useState, useEffect } from "react";
 import axios from "axios";
-
+import api from "../api/axios";
 export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
@@ -19,12 +19,11 @@ export const UserProvider = ({ children }) => {
       return;
     }
 
-    axios
-      .get("http://127.0.0.1:8000/api/user/", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+   api.get("user/", {
+  headers: {
+    Authorization: `Bearer ${token}`,
+  },
+});
       .then((res) => {
 
         setUser(res.data);
