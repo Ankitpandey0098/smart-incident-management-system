@@ -99,3 +99,5 @@ Ankit Pandey
 
 Smart Incident Management System
 Final Year Project
+
+⭐ If you like this project, give it a star!
