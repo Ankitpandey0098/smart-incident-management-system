@@ -1,21 +1,11 @@
 import { Navigate } from "react-router-dom";
-import { useEffect, useState } from "react";
 
 const PrivateRoute = ({ children }) => {
-  const [token, setToken] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const token = localStorage.getItem("access");
 
-  useEffect(() => {
-    const storedToken = localStorage.getItem("access");
-    setToken(storedToken);
-    setLoading(false);
-  }, []);
+  console.log("PrivateRoute token:", token);
 
-  if (loading) {
-    return null; // wait until token loads
-  }
-
-  if (!token) {
+  if (!token || token === "undefined" || token === "null") {
     return <Navigate to="/login" replace />;
   }
 

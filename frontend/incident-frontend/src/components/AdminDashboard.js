@@ -209,6 +209,7 @@ const AdminDashboard = () => {
   };
 
   return (
+    console.log("TOKEN INSIDE ADMIN:", localStorage.getItem("access")),
 
     <div className="container mt-5 pt-5">
 
