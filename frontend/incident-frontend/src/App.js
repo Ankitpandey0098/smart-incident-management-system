@@ -35,8 +35,25 @@ const BACKGROUNDS = [
 ];
 
 function App() {
-  const token = localStorage.getItem("access");
-const role = localStorage.getItem("role");
+  const [token, setToken] = useState(localStorage.getItem("access"));
+const [role, setRole] = useState(localStorage.getItem("role"));
+
+useEffect(() => {
+  const handleStorageChange = () => {
+    setToken(localStorage.getItem("access"));
+    setRole(localStorage.getItem("role"));
+  };
+
+  window.addEventListener("storage", handleStorageChange);
+
+  // run once after login
+  handleStorageChange();
+
+  return () => {
+    window.removeEventListener("storage", handleStorageChange);
+  };
+}, []);
+
 
 
   const [bgIndex, setBgIndex] = useState(0);
