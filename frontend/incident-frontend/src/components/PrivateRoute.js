@@ -1,7 +1,13 @@
-const token = localStorage.getItem("access");
+import { Navigate } from "react-router-dom";
 
-if (!token) {
-  return <Navigate to="/login" replace />;
-}
+const PrivateRoute = ({ children }) => {
+  const token = localStorage.getItem("access");
 
-return children;
+  if (!token) {
+    return <Navigate to="/login" replace />;
+  }
+
+  return children;
+};
+
+export default PrivateRoute;
