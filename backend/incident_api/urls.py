@@ -3,7 +3,8 @@ from django.urls import path, include
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from django.conf import settings
 from django.conf.urls.static import static
-
+from django.conf import settings
+from django.conf.urls.static import static
 # ---------------- Auth Imports ----------------
 from incidents.views_auth import (
     get_current_user,
@@ -40,3 +41,7 @@ urlpatterns = [
 # Serve media files in DEBUG mode
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

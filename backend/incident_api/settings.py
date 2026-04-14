@@ -52,8 +52,9 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+        'rest_framework.permissions.AllowAny',
     ],
+
 }
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -131,7 +132,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
@@ -172,3 +175,7 @@ EMAIL_HOST_PASSWORD = 'bgmhuvunpbilfyos'      # 🔴 replace
 DEFAULT_FROM_EMAIL = 'Incident Platform <pandeyji7112@gmail.com>'
 
 BASE_URL = "https://smart-incident-management-system-chno.onrender.com"
+
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
