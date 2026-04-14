@@ -35,8 +35,9 @@ const BACKGROUNDS = [
 ];
 
 function App() {
-  const isLoggedIn = !!localStorage.getItem("access");
-  const role = localStorage.getItem("role");
+  const token = localStorage.getItem("access");
+const role = localStorage.getItem("role");
+
 
   const [bgIndex, setBgIndex] = useState(0);
 
@@ -119,21 +120,22 @@ function App() {
 
                 {/* Default */}
                 <Route
-                  path="/"
-                  element={
-                    isLoggedIn ? (
-                      role === "admin" ? (
-                        <Navigate to="/admin" replace />
-                      ) : role === "department" ? (
-                        <Navigate to="/department" replace />
-                      ) : (
-                        <Navigate to="/dashboard" replace />
-                      )
-                    ) : (
-                      <Navigate to="/login" replace />
-                    )
-                  }
-                />
+  path="/"
+  element={
+    token ? (
+      role === "admin" ? (
+        <Navigate to="/admin" replace />
+      ) : role === "department" ? (
+        <Navigate to="/department" replace />
+      ) : (
+        <Navigate to="/dashboard" replace />
+      )
+    ) : (
+      <Navigate to="/login" replace />
+    )
+  }
+/>
+
 
                 <Route
                   path="/department"
