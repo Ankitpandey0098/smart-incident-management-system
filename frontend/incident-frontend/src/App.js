@@ -25,6 +25,8 @@ import IncidentMap from "./components/IncidentMap";
 import DepartmentDashboard from "./components/DepartmentDashboard";
 import IncidentStatistics from "./components/IncidentCharts";
 
+import AuthLoader from "./components/AuthLoader";
+
 /* 🔹 BACKGROUND IMAGES */
 const BACKGROUNDS = [
   "/bg/bg1.webp",
@@ -126,22 +128,8 @@ function App() {
                 />
 
                 {/* Default */}
-                <Route
-  path="/"
-  element={
-    token ? (
-      role === "admin" ? (
-        <Navigate to="/admin" replace />
-      ) : role === "department" ? (
-        <Navigate to="/department" replace />
-      ) : (
-        <Navigate to="/dashboard" replace />
-      )
-    ) : (
-      <Navigate to="/login" replace />
-    )
-  }
-/>
+           <Route path="/" element={<AuthLoader />} />
+
 
 
                 <Route
