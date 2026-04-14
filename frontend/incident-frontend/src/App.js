@@ -35,17 +35,9 @@ const BACKGROUNDS = [
 ];
 
 function App() {
-  const [token, setToken] = useState(localStorage.getItem("access"));
-const [role, setRole] = useState(localStorage.getItem("role"));
+  const token = localStorage.getItem("access");
+  const role = localStorage.getItem("role");
 
-useEffect(() => {
-  const interval = setInterval(() => {
-    setToken(localStorage.getItem("access"));
-    setRole(localStorage.getItem("role"));
-  }, 500);
-
-  return () => clearInterval(interval);
-}, []);
   const [bgIndex, setBgIndex] = useState(0);
 
   /* 🔹 CHANGE BACKGROUND EVERY 5 SECONDS */
@@ -77,7 +69,15 @@ useEffect(() => {
                 <Route path="/about" element={<About />} />
                 <Route path="/contact" element={<Contact />} />
                 
-                <Route path="/admin" element={<AdminDashboard />} />
+                <Route
+                  path="/admin"
+                  element={
+                    <PrivateRoute>
+                      <AdminDashboard />
+                    </PrivateRoute>
+                  }
+                />
+
                 <Route path="/map" element={<IncidentMap />} />
                <Route 
   path="/incident-statistics" 
