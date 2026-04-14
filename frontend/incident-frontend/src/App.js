@@ -39,23 +39,13 @@ function App() {
 const [role, setRole] = useState(localStorage.getItem("role"));
 
 useEffect(() => {
-  const handleStorageChange = () => {
+  const interval = setInterval(() => {
     setToken(localStorage.getItem("access"));
     setRole(localStorage.getItem("role"));
-  };
+  }, 500);
 
-  window.addEventListener("storage", handleStorageChange);
-
-  // run once after login
-  handleStorageChange();
-
-  return () => {
-    window.removeEventListener("storage", handleStorageChange);
-  };
+  return () => clearInterval(interval);
 }, []);
-
-
-
   const [bgIndex, setBgIndex] = useState(0);
 
   /* 🔹 CHANGE BACKGROUND EVERY 5 SECONDS */
