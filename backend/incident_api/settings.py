@@ -171,4 +171,4 @@ EMAIL_HOST_PASSWORD = 'bgmhuvunpbilfyos'      # 🔴 replace
 
 DEFAULT_FROM_EMAIL = 'Incident Platform <pandeyji7112@gmail.com>'
 
-BASE_URL = "http://127.0.0.1:8000"
+BASE_URL = "https://smart-incident-management-system-chno.onrender.com"

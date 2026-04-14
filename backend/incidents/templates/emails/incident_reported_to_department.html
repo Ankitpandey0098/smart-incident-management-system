@@ -97,17 +97,17 @@ Incident Assigned to Department
 <div class="buttons">
 
 <a class="btn pending"
-href="http://127.0.0.1:8000/api/incidents/update-status/{{ incident_id }}/pending/">
+href="{{ base_url }}/api/incidents/update-status/{{ incident_id }}/pending/">
 Pending
 </a>
 
 <a class="btn progress"
-href="http://127.0.0.1:8000/api/incidents/update-status/{{ incident_id }}/in progress/">
+href="{{ base_url }}/api/incidents/update-status/{{ incident_id }}/in progress/">
 In Progress
 </a>
 
 <a class="btn resolved"
-href="http://127.0.0.1:8000/api/incidents/update-status/{{ incident_id }}/resolved/">
+href="{{ base_url }}/api/incidents/update-status/{{ incident_id }}/resolved/">
 Resolved
 </a>
 
