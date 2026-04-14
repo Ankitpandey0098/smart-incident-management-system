@@ -23,7 +23,7 @@ export const UserProvider = ({ children }) => {
   headers: {
     Authorization: `Bearer ${token}`,
   },
-});
+})
       .then((res) => {
 
         setUser(res.data);

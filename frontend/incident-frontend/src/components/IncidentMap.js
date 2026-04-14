@@ -145,7 +145,7 @@ const IncidentMap = () => {
   useEffect(() => {
     const fetchIncidents = async () => {
       try {
-        import api from "../api/axios";
+        
 
         const res = await api.get("incidents/", axiosConfig);
 

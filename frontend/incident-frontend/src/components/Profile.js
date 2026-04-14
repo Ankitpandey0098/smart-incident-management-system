@@ -10,7 +10,7 @@ import {
   Badge,
   Image,
 } from "react-bootstrap";
-import axios from "axios";
+
 import { useNavigate } from "react-router-dom";
 import api from "../api/axios";
 const Profile = () => {
@@ -40,7 +40,7 @@ const Profile = () => {
 
     api.get("profile/", {
   headers: { Authorization: `Bearer ${token}` },
-});
+})
       .then((res) => {
         setProfile(res.data);
         setFormData({
@@ -85,7 +85,7 @@ const Profile = () => {
     Authorization: `Bearer ${token}`,
     "Content-Type": "multipart/form-data",
   },
-});
+})
       .then((res) => {
         setProfile({ ...profile, ...res.data });
         setEditMode(false);
