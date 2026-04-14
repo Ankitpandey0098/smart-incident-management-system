@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+
 import {
   Form,
   Button,
@@ -37,10 +37,7 @@ function Login() {
     setLoading(true);
 
     try {
-
       const res = await api.post("/login/", form);
-
-
       // Save tokens
       localStorage.setItem("access", res.data.access);
       localStorage.setItem("refresh", res.data.refresh);
@@ -48,8 +45,8 @@ function Login() {
       // Get user info
       const user = await api.get("/user/", {
   headers: {
-    Authorization: `Bearer ${res.data.access}`
-  }
+    Authorization: `Bearer ${res.data.access}`,
+  },
 });
 
 

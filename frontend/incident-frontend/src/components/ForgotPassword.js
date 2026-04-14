@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Card, Form, Button, Alert, Spinner } from "react-bootstrap";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import api from "../api/axios";
 
 const OTP_EXPIRY_SECONDS = 300; // 5 minutes
 
@@ -43,11 +43,10 @@ const ForgotPassword = () => {
     setError("");
     setMessage("");
 
-   try {
-  const res = await axios.post(
-    "https://smart-incident-management-system-chno.onrender.com/api/auth/forgot-password/",
-    { email }
-  );
+    try {
+      const res = await api.post("auth/forgot-password/", {
+        email,
+      });
 
       setMessage(res.data.message);
       setStep(2);
@@ -65,16 +64,15 @@ const ForgotPassword = () => {
     setError("");
     setMessage("");
 
-   try {
-  const res = await axios.post(
-    "https://smart-incident-management-system-chno.onrender.com/api/auth/forgot-password/",
-    { email }
-  );
+    try {
+      const res = await api.post("auth/forgot-password/", {
+        email,
+      });
 
       setMessage("OTP resent successfully");
       setTimer(OTP_EXPIRY_SECONDS);
     } catch (err) {
-      setError("Failed to resend OTP");
+      setError(err.response?.data?.error || "Failed to resend OTP");
     } finally {
       setLoading(false);
     }
@@ -87,11 +85,12 @@ const ForgotPassword = () => {
     setError("");
     setMessage("");
 
-   try {
-  const res = await axios.post(
-    "https://smart-incident-management-system-chno.onrender.com/api/auth/verify-otp/",
-    { email, otp }
-  );
+    try {
+      const res = await api.post("auth/verify-otp/", {
+        email,
+        otp,
+      });
+
       setMessage(res.data.message);
       setStep(3);
     } catch (err) {
@@ -109,19 +108,18 @@ const ForgotPassword = () => {
     setMessage("");
 
     try {
-  const res = await axios.post(
-    "https://smart-incident-management-system-chno.onrender.com/api/auth/reset-password/",
-    { email, otp, password }
-  );
-
+      const res = await api.post("auth/reset-password/", {
+        email,
+        otp,
+        password,
+      });
 
       setMessage(res.data.message);
 
-      // ✅ Redirect after success
+      // Redirect after success
       setTimeout(() => {
         navigate("/login");
       }, 2000);
-
     } catch (err) {
       setError(err.response?.data?.error || "Password reset failed");
     } finally {
