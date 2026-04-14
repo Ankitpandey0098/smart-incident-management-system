@@ -37,6 +37,8 @@ function Login() {
     setLoading(true);
 
     try {
+      console.log(api);
+
       const res = await api.post("/login/", form);
       // Save tokens
       localStorage.setItem("access", res.data.access);
