@@ -17,11 +17,7 @@ export const UserProvider = ({ children }) => {
       return;
     }
 
-    api.get("user/", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
+    api.get("user/")
       .then((res) => {
 
         setUser(res.data);
@@ -35,8 +31,7 @@ export const UserProvider = ({ children }) => {
         console.error("User fetch error:", err);
 
         if (err.response?.status === 401) {
-          localStorage.removeItem("access");
-          localStorage.removeItem("refresh");
+          console.warn("Unauthorized user fetch");
           setUser(null);
         }
 
