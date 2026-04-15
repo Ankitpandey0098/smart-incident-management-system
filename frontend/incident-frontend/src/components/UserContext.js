@@ -32,12 +32,21 @@ export const UserProvider = ({ children }) => {
         localStorage.setItem("department", res.data.department || "");
 
       })
-      .catch(() => {
-        localStorage.clear();
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+      .catch((err) => {
+
+          console.error("User fetch error:", err);
+
+          if (err.response?.status === 401) {
+            localStorage.removeItem("access");
+            localStorage.removeItem("refresh");
+            setUser(null);
+          }
+
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+
 
   }, []);
 
