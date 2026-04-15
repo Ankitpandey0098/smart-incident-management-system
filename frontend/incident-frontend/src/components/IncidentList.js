@@ -28,7 +28,7 @@ import LiveIncidentFeed from "../components/LiveIncidentFeed";
 dayjs.extend(relativeTime);
 dayjs.extend(utc);
 
-const API = "https://smart-incident-management-system-chno.onrender.com/api";
+
 
 
 const IncidentList = () => {
@@ -83,7 +83,8 @@ const IncidentList = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await axios.get(`${API}/user/`, axiosConfig);
+        const res = await api.get("user/");
+
         setCurrentUser(res.data);
       } catch (err) {
         console.error("User fetch failed", err);
@@ -97,7 +98,7 @@ const IncidentList = () => {
   const fetchIncidents = async () => {
     try {
 
-      const res = await axios.get(`${API}/incidents/`, axiosConfig);
+      const res = await api.get("incidents/");
 
       const formatted = res.data.map(i => ({
         ...i,
@@ -295,7 +296,8 @@ const sortByStatusPriority = (data) => {
 
     try {
 
-      await axios.delete(`${API}/incidents/${id}/`, axiosConfig);
+      await api.delete(`incidents/${id}/`);
+
 
       setIncidents(prev =>
   sortByStatusPriority(
@@ -325,7 +327,7 @@ const sortByStatusPriority = (data) => {
 
   try {
 
-    await axios.patch(`${API}/incidents/${id}/`, { category }, axiosConfig);
+    await api.patch(`incidents/${id}/`, { category });
 
     setIncidents(prev => {
       const updated = prev.map(i =>
@@ -356,7 +358,7 @@ const sortByStatusPriority = (data) => {
 
   try {
 
-    await axios.patch(`${API}/incidents/${id}/`, { status }, axiosConfig);
+    await api.patch(`incidents/${id}/`, { status });
 
     setIncidents(prev => {
       const updated = prev.map(i =>

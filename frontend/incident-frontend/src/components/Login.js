@@ -9,6 +9,8 @@ import {
 import api from "../api/axios";
 
 import { useNavigate, Link } from "react-router-dom";
+import { useContext } from "react";
+import { UserContext } from "../UserContext";
 
 function Login() {
 
@@ -22,7 +24,7 @@ function Login() {
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
-
+  const { setUser } = useContext(UserContext);
   const handleChange = (e) => {
     setForm({
       ...form,
@@ -37,7 +39,7 @@ function Login() {
     setLoading(true);
 
     try {
-      console.log(api);
+      
 
       const res = await api.post("/login/", form);
       // Save tokens
@@ -45,11 +47,12 @@ function Login() {
       localStorage.setItem("refresh", res.data.refresh);
 
       // Get user info
-      const user = await api.get("/user/", {
-  headers: {
-    Authorization: `Bearer ${res.data.access}`,
-  },
-});
+      const user = await api.get("/user/");
+
+      setUser(user.data);
+
+
+      
 
 
       // Save role + department

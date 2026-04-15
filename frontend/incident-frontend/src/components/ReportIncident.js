@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+
 import { Form, Button, Container, Alert, Card } from "react-bootstrap";
 import { MapContainer, TileLayer, Marker, useMapEvents } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
@@ -103,9 +103,11 @@ function ReportIncident() {
 
       await api.post("incidents/", formData, {
   headers: {
-    Authorization: `Bearer ${token}`,
+    "Content-Type": "multipart/form-data",
   },
 });
+
+
 
       setMessage("✅ Report submitted successfully.");
 

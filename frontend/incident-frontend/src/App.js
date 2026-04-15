@@ -128,7 +128,7 @@ function App() {
                 />
 
                 {/* Default */}
-           <Route path="/" element={<AuthLoader />} />
+          <Route path="/" element={<AuthLoader />} />
 
 
 

@@ -3,7 +3,7 @@
   import { Link, useNavigate, useLocation } from "react-router-dom";
   import ProfileBar from "./ProfileBar";
   import { UserContext } from "../UserContext";
-  import axios from "axios";
+ 
   import api from "../api/axios";
   const NavigationBar = () => {
     const navigate = useNavigate();
@@ -11,13 +11,11 @@
     const { user } = useContext(UserContext);
     const [token, setToken] = useState(localStorage.getItem("access"));
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setToken(localStorage.getItem("access"));
-    }, 1000);
+useEffect(() => {
+  setToken(localStorage.getItem("access"));
+}, [user]);
 
-    return () => clearInterval(interval);
-  }, []);
+
 
 
     const [darkMode, setDarkMode] = useState(localStorage.getItem("darkMode") === "true");
@@ -46,9 +44,8 @@
     const fetchNotifications = async () => {
       setLoadingNotifications(true);
       try {
-        const res = await api.get("notifications/", {
-    headers: { Authorization: `Bearer ${token}` },
-  });
+        const res = await api.get("notifications/");
+
         setNotifications(res.data);
       } catch (err) {
         console.error("Failed to fetch notifications", err);
@@ -59,13 +56,10 @@
 
     const markAsRead = async (id) => {
       try {
-    await api.post(
-    "notifications/mark_read/",
-    { notification_id: id },
-    {
-      headers: { Authorization: `Bearer ${token}` },
-    }
-  );
+    await api.post("notifications/mark_read/", {
+  notification_id: id,
+});
+
         setNotifications((prev) =>
           prev.map((n) => (n.id === id ? { ...n, is_read: true } : n))
         );
@@ -77,9 +71,15 @@
     const unreadCount = notifications.filter((n) => !n.is_read).length;
 
     const handleLogout = () => {
-      localStorage.clear();
-      navigate("/login");
-    };
+  localStorage.removeItem("access");
+  localStorage.removeItem("refresh");
+  localStorage.removeItem("role");
+  localStorage.removeItem("department");
+
+  navigate("/login");
+  window.location.reload();
+};
+
 
     const isActive = (path) => location.pathname === path;
 
