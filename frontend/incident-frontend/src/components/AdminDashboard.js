@@ -17,7 +17,6 @@ import api from "../api/axios";
 
 const AdminDashboard = () => {
 
-  const token = localStorage.getItem("access");
 
   const [incidents, setIncidents] = useState([]);
   const [visibleIncidents, setVisibleIncidents] = useState([]);
@@ -61,11 +60,8 @@ const AdminDashboard = () => {
 
     try {
 
-      const res = await api.get("/incidents/", {
-  headers: {
-    Authorization: `Bearer ${token}`
-  }
-});
+      const res = await api.get("/incidents/");
+
 
 
       const sorted = sortIncidents(res.data);
@@ -147,11 +143,8 @@ const AdminDashboard = () => {
 
     try {
 
-     await api.post(`/incidents/${incident.id}/report/`, {}, {
-  headers: {
-    Authorization: `Bearer ${token}`
-  }
-});
+     await api.post(`/incidents/${incident.id}/report/`);
+
 
 
       setMessage(
@@ -174,13 +167,9 @@ const AdminDashboard = () => {
 
       await api.patch(
   `/incidents/${incident.id}/`,
-  { status: newStatus },
-  {
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
-  }
+  { status: newStatus }
 );
+
 
 
       setMessage(`Status updated to ${newStatus}`);
@@ -209,7 +198,7 @@ const AdminDashboard = () => {
   };
 
   return (
-    console.log("TOKEN INSIDE ADMIN:", localStorage.getItem("access")),
+    
 
     <div className="container mt-5 pt-5">
 
