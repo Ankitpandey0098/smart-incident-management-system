@@ -17,7 +17,7 @@ export const UserProvider = ({ children }) => {
       return;
     }
 
-    api.get("user/")
+    api.get("/user/")
       .then((res) => {
 
         setUser(res.data);
